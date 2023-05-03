@@ -30,7 +30,7 @@ microservice-chart:
   ingress:
     create: true
     host: "weudev.bizevents.internal.dev.platform.pagopa.it"
-    path: /pagopa-biz-events-datastore-service/(.*)
+    path: /pagopa-negative-biz-events-datastore-service/(.*)
   serviceAccount:
     create: false
     annotations: {}

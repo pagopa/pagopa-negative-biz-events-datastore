@@ -27,10 +27,6 @@ microservice-chart:
     create: true
     type: ClusterIP
     port: 80
-  ingress:
-    create: true
-    host: "weudev.bizevents.internal.dev.platform.pagopa.it"
-    path: /pagopa-negative-biz-events-datastore-service/(.*)
   serviceAccount:
     create: false
     annotations: {}

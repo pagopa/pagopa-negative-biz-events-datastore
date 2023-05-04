@@ -1,0 +1,1041 @@
+[
+  {
+    "id": "4be54cee-4302-4ae6-91ca-37c30a7831e5",
+    "version": "2",
+    "businessProcess": "mod3CancelV1ActorPerRequest",
+    "useCase": "13",
+    "reAwakable": true,
+    "complete": false,
+    "missingInfo": [
+      "creditor.officeName",
+      "paymentInfo.dueDate",
+      "paymentInfo.paymentMethod",
+      "paymentInfo.metadata"
+    ],
+    "debtorPosition": {
+      "modelType": "2",
+      "noticeNumber": "002696320585123674",
+      "iuv": "696320585123674"
+    },
+    "creditor": {
+      "idPA": "12345678900",
+      "idBrokerPA": "intPaTest",
+      "idStation": "stazioneTestOld",
+      "companyName": "pa DEV ragsoc"
+    },
+    "psp": {
+      "idBrokerPsp": "intPspTest",
+      "idChannel": "canaleTest",
+      "idPsp": "pspTest",
+      "psp": "Test-PSP",
+      "pspPartitaIVA": "vat",
+      "pspFiscalCode": "pspTest",
+      "channelDescription": "NA"
+    },
+    "debtor": {
+      "fullName": "Utente Test",
+      "entityUniqueIdentifierType": "F",
+      "entityUniqueIdentifierValue": "TTTTTT11T11T123T"
+    },
+    "paymentInfo": {
+      "paymentDateTime": "2023-05-03T10:07:22.703673",
+      "paymentToken": "289f3aa8a3084c649f3d09328bba80e2",
+      "amount": 100.0,
+      "totalNotice": 1,
+      "touchpoint": "NA",
+      "remittanceInformation": "pagamento multibeneficiario"
+    },
+    "transferList": [
+      {
+        "idTransfer": "1",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 100.0,
+        "transferCategory": "9/tipodovuto_7",
+        "remittanceInformation": "CAUSALE 1CAUSALE 2",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false
+      }
+    ]
+  },
+  {
+    "id": "ac1c9616-0046-4286-942e-f4dab4d664bf",
+    "version": "2",
+    "businessProcess": "mod3CancelV1ActorPerRequest",
+    "useCase": "13",
+    "reAwakable": false,
+    "complete": false,
+    "missingInfo": [
+      "creditor.officeName",
+      "paymentInfo.dueDate",
+      "paymentInfo.paymentMethod",
+      "paymentInfo.metadata"
+    ],
+    "debtorPosition": {
+      "modelType": "2",
+      "noticeNumber": "002723990373521688",
+      "iuv": "723990373521688"
+    },
+    "creditor": {
+      "idPA": "12345678900",
+      "idBrokerPA": "intPaTest",
+      "idStation": "stazioneTestOld",
+      "companyName": "pa DEV ragsoc"
+    },
+    "psp": {
+      "idBrokerPsp": "intPspTest",
+      "idChannel": "canaleTest",
+      "idPsp": "pspTest",
+      "psp": "Test-PSP",
+      "pspPartitaIVA": "vat",
+      "pspFiscalCode": "pspTest",
+      "channelDescription": "NA"
+    },
+    "debtor": {
+      "fullName": "Utente Test",
+      "entityUniqueIdentifierType": "F",
+      "entityUniqueIdentifierValue": "TTTTTT11T11T123T"
+    },
+    "paymentInfo": {
+      "paymentDateTime": "2023-05-03T10:07:25.091436",
+      "paymentToken": "c2eb7366819943aa81ea93131983c54f",
+      "amount": 100.0,
+      "totalNotice": 1,
+      "touchpoint": "NA",
+      "remittanceInformation": "pagamento multibeneficiario"
+    },
+    "transferList": [
+      {
+        "idTransfer": "1",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 100.0,
+        "transferCategory": "9/tipodovuto_7",
+        "remittanceInformation": "CAUSALE 1CAUSALE 2",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false
+      }
+    ]
+  },
+  {
+    "id": "51fb3eac-27d8-4527-860c-156ccbb23d27",
+    "version": "2",
+    "businessProcess": "mod3CancelV1ActorPerRequest",
+    "useCase": "13",
+    "reAwakable": false,
+    "complete": false,
+    "missingInfo": [
+      "creditor.officeName",
+      "paymentInfo.dueDate",
+      "paymentInfo.paymentMethod",
+      "paymentInfo.metadata"
+    ],
+    "debtorPosition": {
+      "modelType": "2",
+      "noticeNumber": "002030070632059692",
+      "iuv": "030070632059692"
+    },
+    "creditor": {
+      "idPA": "12345678900",
+      "idBrokerPA": "intPaTest",
+      "idStation": "stazioneTestOld",
+      "companyName": "pa DEV ragsoc"
+    },
+    "psp": {
+      "idBrokerPsp": "intPspTest",
+      "idChannel": "canaleTest",
+      "idPsp": "pspTest",
+      "psp": "Test-PSP",
+      "pspPartitaIVA": "vat",
+      "pspFiscalCode": "pspTest",
+      "channelDescription": "NA"
+    },
+    "debtor": {
+      "fullName": "Utente Test",
+      "entityUniqueIdentifierType": "F",
+      "entityUniqueIdentifierValue": "TTTTTT11T11T123T"
+    },
+    "paymentInfo": {
+      "paymentDateTime": "2023-05-03T10:07:27.492592",
+      "paymentToken": "3c6c3fffed5f45cc863badaa741ace6b",
+      "amount": 100.0,
+      "totalNotice": 1,
+      "touchpoint": "NA",
+      "remittanceInformation": "pagamento multibeneficiario"
+    },
+    "transferList": [
+      {
+        "idTransfer": "1",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 100.0,
+        "transferCategory": "9/tipodovuto_7",
+        "remittanceInformation": "CAUSALE 1CAUSALE 2",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false
+      }
+    ]
+  },
+  {
+    "id": "309b39f2-45d6-48ea-be5c-0a291e3baf64",
+    "version": "2",
+    "businessProcess": "mod3CancelV1ActorPerRequest",
+    "useCase": "13",
+    "reAwakable": false,
+    "complete": false,
+    "missingInfo": [
+      "creditor.officeName",
+      "paymentInfo.dueDate",
+      "paymentInfo.paymentMethod",
+      "paymentInfo.metadata"
+    ],
+    "debtorPosition": {
+      "modelType": "2",
+      "noticeNumber": "002999471413475302",
+      "iuv": "999471413475302"
+    },
+    "creditor": {
+      "idPA": "12345678900",
+      "idBrokerPA": "intPaTest",
+      "idStation": "stazioneTestOld",
+      "companyName": "pa DEV ragsoc"
+    },
+    "psp": {
+      "idBrokerPsp": "intPspTest",
+      "idChannel": "canaleTest",
+      "idPsp": "pspTest",
+      "psp": "Test-PSP",
+      "pspPartitaIVA": "vat",
+      "pspFiscalCode": "pspTest",
+      "channelDescription": "NA"
+    },
+    "debtor": {
+      "fullName": "Utente Test",
+      "entityUniqueIdentifierType": "F",
+      "entityUniqueIdentifierValue": "TTTTTT11T11T123T"
+    },
+    "paymentInfo": {
+      "paymentDateTime": "2023-05-03T10:07:30.10199",
+      "paymentToken": "f3b9fb0e4e3e4cb8ae7e12edd4c5f596",
+      "amount": 100.0,
+      "totalNotice": 1,
+      "touchpoint": "NA",
+      "remittanceInformation": "pagamento multibeneficiario"
+    },
+    "transferList": [
+      {
+        "idTransfer": "1",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 100.0,
+        "transferCategory": "9/tipodovuto_7",
+        "remittanceInformation": "CAUSALE 1CAUSALE 2",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false
+      }
+    ]
+  },
+  {
+    "id": "e20a3dd1-05ed-4d06-a8e2-22bd30494ab2",
+    "version": "2",
+    "businessProcess": "sendPaymentOutcomeV2",
+    "useCase": "23",
+    "reAwakable": false,
+    "complete": true,
+    "missingInfo": [],
+    "debtorPosition": {
+      "modelType": "2",
+      "noticeNumber": "003636882846115712",
+      "iuv": "636882846115712"
+    },
+    "creditor": {
+      "idPA": "12345678900",
+      "idBrokerPA": "intPaTest",
+      "idStation": "stazionePV2",
+      "companyName": "pa DEV ragsoc",
+      "officeName": "officeName"
+    },
+    "psp": {
+      "idBrokerPsp": "intPspTest",
+      "idChannel": "canaleTest",
+      "idPsp": "pspTest",
+      "psp": "Test-PSP",
+      "pspPartitaIVA": "vat",
+      "pspFiscalCode": "pspTest",
+      "channelDescription": "app"
+    },
+    "debtor": {
+      "fullName": "fullName",
+      "entityUniqueIdentifierType": "F",
+      "entityUniqueIdentifierValue": "entity",
+      "civicNumber": "civicNumber",
+      "postalCode": "postalCode",
+      "city": "city",
+      "stateProvinceRegion": "stateProvinceRegion",
+      "country": "IT",
+      "eMail": "mail@mail.it"
+    },
+    "paymentInfo": {
+      "paymentDateTime": "2023-05-03T10:07:53.727682",
+      "dueDate": "2021-12-12",
+      "paymentToken": "15eb8d9afa0142b9b7c7009b4e5fb630",
+      "amount": 10.0,
+      "totalNotice": 1,
+      "paymentMethod": "creditCard",
+      "touchpoint": "app",
+      "remittanceInformation": "test",
+      "metadata": [
+        {
+          "key": "METADATA2",
+          "value": "M2Value"
+        },
+        {
+          "key": "METADATA3",
+          "value": "?2"
+        }
+      ]
+    },
+    "transferList": [
+      {
+        "idTransfer": "1",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 5.0,
+        "transferCategory": "transferCategory",
+        "remittanceInformation": "remittanceInformation",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false,
+        "metadata": [
+          {
+            "key": "METADATA1",
+            "value": "M1Value"
+          },
+          {
+            "key": "METADATA2",
+            "value": "M2Value"
+          }
+        ]
+      },
+      {
+        "idTransfer": "2",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 5.0,
+        "transferCategory": "transferCategory",
+        "remittanceInformation": "remittanceInformation",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false,
+        "metadata": [
+          {
+            "key": "METADATA1",
+            "value": "M1Value"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "68d1c523-1e2e-4709-a21d-4ca339572dad",
+    "version": "2",
+    "businessProcess": "mod3CancelV2ActorPerRequest",
+    "useCase": "11",
+    "reAwakable": false,
+    "complete": false,
+    "missingInfo": [
+      "paymentInfo.dueDate",
+      "paymentInfo.paymentMethod"
+    ],
+    "debtorPosition": {
+      "modelType": "2",
+      "noticeNumber": "001742764951771874",
+      "iuv": "742764951771874"
+    },
+    "creditor": {
+      "idPA": "12345678900",
+      "idBrokerPA": "intPaTest",
+      "idStation": "stazioneTest",
+      "companyName": "pa DEV ragsoc",
+      "officeName": "officeName"
+    },
+    "psp": {
+      "idBrokerPsp": "intPspTest",
+      "idChannel": "canaleTest",
+      "idPsp": "pspTest",
+      "psp": "Test-PSP",
+      "pspPartitaIVA": "vat",
+      "pspFiscalCode": "pspTest",
+      "channelDescription": "NA"
+    },
+    "debtor": {
+      "fullName": "fullName",
+      "entityUniqueIdentifierType": "F",
+      "entityUniqueIdentifierValue": "entity",
+      "civicNumber": "civicNumber",
+      "postalCode": "postalCode",
+      "city": "city",
+      "stateProvinceRegion": "stateProvinceRegion",
+      "country": "IT",
+      "eMail": "mail@mail.it"
+    },
+    "paymentInfo": {
+      "paymentDateTime": "2023-05-03T10:06:46.845529",
+      "paymentToken": "90ce221e405c49cdbba8974b63465bd5",
+      "amount": 10.0,
+      "totalNotice": 1,
+      "touchpoint": "NA",
+      "remittanceInformation": "test",
+      "metadata": [
+        {
+          "key": "?",
+          "value": "?"
+        },
+        {
+          "key": "?2",
+          "value": "?2"
+        }
+      ]
+    },
+    "transferList": [
+      {
+        "idTransfer": "1",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 5.0,
+        "transferCategory": "transferCategory",
+        "remittanceInformation": "remittanceInformation",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false
+      },
+      {
+        "idTransfer": "2",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 5.0,
+        "transferCategory": "transferCategory",
+        "remittanceInformation": "remittanceInformation",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false
+      }
+    ]
+  },
+  {
+    "id": "d57fdc05-c610-4958-a665-bfe0b7c2bbb9",
+    "version": "2",
+    "businessProcess": "mod3CancelV2ActorPerRequest",
+    "useCase": "9",
+    "reAwakable": false,
+    "complete": false,
+    "missingInfo": [
+      "paymentInfo.dueDate",
+      "paymentInfo.paymentMethod"
+    ],
+    "debtorPosition": {
+      "modelType": "2",
+      "noticeNumber": "001118751046137336",
+      "iuv": "118751046137336"
+    },
+    "creditor": {
+      "idPA": "12345678900",
+      "idBrokerPA": "intPaTest",
+      "idStation": "stazioneTest",
+      "companyName": "pa DEV ragsoc",
+      "officeName": "officeName"
+    },
+    "psp": {
+      "idBrokerPsp": "intPspTest",
+      "idChannel": "canaleTest",
+      "idPsp": "pspTest",
+      "psp": "Test-PSP",
+      "pspPartitaIVA": "vat",
+      "pspFiscalCode": "pspTest",
+      "channelDescription": "NA"
+    },
+    "debtor": {
+      "fullName": "fullName",
+      "entityUniqueIdentifierType": "F",
+      "entityUniqueIdentifierValue": "entity",
+      "civicNumber": "civicNumber",
+      "postalCode": "postalCode",
+      "city": "city",
+      "stateProvinceRegion": "stateProvinceRegion",
+      "country": "IT",
+      "eMail": "mail@mail.it"
+    },
+    "paymentInfo": {
+      "paymentDateTime": "2023-05-03T10:07:04.43348",
+      "paymentToken": "a053797f146e4d8eb646465c94506cc7",
+      "amount": 10.0,
+      "totalNotice": 1,
+      "touchpoint": "NA",
+      "remittanceInformation": "test",
+      "metadata": [
+        {
+          "key": "?",
+          "value": "?"
+        },
+        {
+          "key": "?2",
+          "value": "?2"
+        }
+      ]
+    },
+    "transferList": [
+      {
+        "idTransfer": "1",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 5.0,
+        "transferCategory": "transferCategory",
+        "remittanceInformation": "remittanceInformation",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false
+      },
+      {
+        "idTransfer": "2",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 5.0,
+        "transferCategory": "transferCategory",
+        "remittanceInformation": "remittanceInformation",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false
+      }
+    ]
+  },
+  {
+    "id": "5124c0e1-ec4e-4968-b657-2e25dad09259",
+    "version": "2",
+    "businessProcess": "mod3CancelV2ActorPerRequest",
+    "useCase": "9",
+    "reAwakable": false,
+    "complete": false,
+    "missingInfo": [
+      "paymentInfo.dueDate"
+    ],
+    "debtorPosition": {
+      "modelType": "2",
+      "noticeNumber": "001852626288540361",
+      "iuv": "852626288540361"
+    },
+    "creditor": {
+      "idPA": "12345678900",
+      "idBrokerPA": "intPaTest",
+      "idStation": "stazioneTest",
+      "companyName": "pa DEV ragsoc",
+      "officeName": "officeName"
+    },
+    "psp": {
+      "idBrokerPsp": "intPspTest",
+      "idChannel": "canaleBPay",
+      "idPsp": "pspTest",
+      "psp": "Test-PSP",
+      "pspPartitaIVA": "vat",
+      "pspFiscalCode": "pspTest",
+      "channelDescription": "WISP"
+    },
+    "debtor": {
+      "fullName": "fullName",
+      "entityUniqueIdentifierType": "F",
+      "entityUniqueIdentifierValue": "entity",
+      "civicNumber": "civicNumber",
+      "postalCode": "postalCode",
+      "city": "city",
+      "stateProvinceRegion": "stateProvinceRegion",
+      "country": "IT",
+      "eMail": "mail@mail.it"
+    },
+    "paymentInfo": {
+      "paymentDateTime": "2023-05-03T10:07:11.787535",
+      "paymentToken": "d7d4ca6d94f64017a21645436e4e7536",
+      "amount": 10.0,
+      "totalNotice": 1,
+      "paymentMethod": "BPAY",
+      "touchpoint": "WISP",
+      "remittanceInformation": "test",
+      "metadata": [
+        {
+          "key": "?",
+          "value": "?"
+        },
+        {
+          "key": "?2",
+          "value": "?2"
+        }
+      ]
+    },
+    "transferList": [
+      {
+        "idTransfer": "1",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 5.0,
+        "transferCategory": "transferCategory",
+        "remittanceInformation": "remittanceInformation",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false
+      },
+      {
+        "idTransfer": "2",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 5.0,
+        "transferCategory": "transferCategory",
+        "remittanceInformation": "remittanceInformation",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false
+      }
+    ]
+  },
+  {
+    "id": "a7111cfd-d6a5-40bc-a159-a3870b0ffdba",
+    "version": "2",
+    "businessProcess": "mod3CancelV2ActorPerRequest",
+    "useCase": "9",
+    "reAwakable": false,
+    "complete": false,
+    "missingInfo": [
+      "paymentInfo.dueDate",
+      "paymentInfo.paymentMethod"
+    ],
+    "debtorPosition": {
+      "modelType": "2",
+      "noticeNumber": "003113980548048837",
+      "iuv": "113980548048837"
+    },
+    "creditor": {
+      "idPA": "12345678900",
+      "idBrokerPA": "intPaTest",
+      "idStation": "stazionePV2",
+      "companyName": "pa DEV ragsoc",
+      "officeName": "officeName"
+    },
+    "psp": {
+      "idBrokerPsp": "intPspTest",
+      "idChannel": "canaleTest",
+      "idPsp": "pspTest",
+      "psp": "Test-PSP",
+      "pspPartitaIVA": "vat",
+      "pspFiscalCode": "pspTest",
+      "channelDescription": "NA"
+    },
+    "debtor": {
+      "fullName": "fullName",
+      "entityUniqueIdentifierType": "F",
+      "entityUniqueIdentifierValue": "entity",
+      "civicNumber": "civicNumber",
+      "postalCode": "postalCode",
+      "city": "city",
+      "stateProvinceRegion": "stateProvinceRegion",
+      "country": "IT",
+      "eMail": "mail@mail.it"
+    },
+    "paymentInfo": {
+      "paymentDateTime": "2023-05-03T10:07:58.393778",
+      "paymentToken": "f6aa58f15ad84903aa2e4bf20f7959bd",
+      "amount": 10.0,
+      "totalNotice": 1,
+      "touchpoint": "NA",
+      "remittanceInformation": "test",
+      "metadata": [
+        {
+          "key": "METADATA2",
+          "value": "M2Value"
+        },
+        {
+          "key": "METADATA3",
+          "value": "?2"
+        }
+      ]
+    },
+    "transferList": [
+      {
+        "idTransfer": "1",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 5.0,
+        "transferCategory": "transferCategory",
+        "remittanceInformation": "remittanceInformation",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false,
+        "metadata": [
+          {
+            "key": "METADATA1",
+            "value": "M1Value"
+          },
+          {
+            "key": "METADATA2",
+            "value": "M2Value"
+          }
+        ]
+      },
+      {
+        "idTransfer": "2",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 5.0,
+        "transferCategory": "transferCategory",
+        "remittanceInformation": "remittanceInformation",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false,
+        "metadata": [
+          {
+            "key": "METADATA1",
+            "value": "M1Value"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "5012121b-6eda-4fa2-9757-6f3a46cdc148",
+    "version": "2",
+    "businessProcess": "mod3CancelV2ActorPerRequest",
+    "useCase": "9",
+    "reAwakable": false,
+    "complete": false,
+    "missingInfo": [
+      "paymentInfo.dueDate",
+      "paymentInfo.paymentMethod"
+    ],
+    "debtorPosition": {
+      "modelType": "2",
+      "noticeNumber": "003357230978986283",
+      "iuv": "357230978986283"
+    },
+    "creditor": {
+      "idPA": "12345678900",
+      "idBrokerPA": "intPaTest",
+      "idStation": "stazionePV2",
+      "companyName": "pa DEV ragsoc",
+      "officeName": "officeName"
+    },
+    "psp": {
+      "idBrokerPsp": "intPspTest",
+      "idChannel": "canaleTest",
+      "idPsp": "pspTest",
+      "psp": "Test-PSP",
+      "pspPartitaIVA": "vat",
+      "pspFiscalCode": "pspTest",
+      "channelDescription": "NA"
+    },
+    "debtor": {
+      "fullName": "fullName",
+      "entityUniqueIdentifierType": "F",
+      "entityUniqueIdentifierValue": "entity",
+      "civicNumber": "civicNumber",
+      "postalCode": "postalCode",
+      "city": "city",
+      "stateProvinceRegion": "stateProvinceRegion",
+      "country": "IT",
+      "eMail": "mail@mail.it"
+    },
+    "paymentInfo": {
+      "paymentDateTime": "2023-05-03T10:08:14.078103",
+      "paymentToken": "000157ef7cda4a33a262371c760552dc",
+      "amount": 10.0,
+      "totalNotice": 1,
+      "touchpoint": "NA",
+      "remittanceInformation": "test",
+      "metadata": [
+        {
+          "key": "METADATA2",
+          "value": "M2Value"
+        },
+        {
+          "key": "METADATA3",
+          "value": "?2"
+        }
+      ]
+    },
+    "transferList": [
+      {
+        "idTransfer": "1",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 5.0,
+        "transferCategory": "transferCategory",
+        "remittanceInformation": "remittanceInformation",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false,
+        "metadata": [
+          {
+            "key": "METADATA1",
+            "value": "M1Value"
+          },
+          {
+            "key": "METADATA2",
+            "value": "M2Value"
+          }
+        ]
+      },
+      {
+        "idTransfer": "2",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 5.0,
+        "transferCategory": "transferCategory",
+        "remittanceInformation": "remittanceInformation",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false,
+        "metadata": [
+          {
+            "key": "METADATA1",
+            "value": "M1Value"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "208c3c12-6156-4ddd-8ea3-25519d69c4ed",
+    "version": "2",
+    "businessProcess": "mod3CancelV2ActorPerRequest",
+    "useCase": "11",
+    "reAwakable": false,
+    "complete": false,
+    "missingInfo": [
+      "paymentInfo.dueDate",
+      "paymentInfo.paymentMethod"
+    ],
+    "debtorPosition": {
+      "modelType": "2",
+      "noticeNumber": "001073705569226073",
+      "iuv": "073705569226073"
+    },
+    "creditor": {
+      "idPA": "12345678900",
+      "idBrokerPA": "intPaTest",
+      "idStation": "stazioneTest",
+      "companyName": "pa DEV ragsoc",
+      "officeName": "officeName"
+    },
+    "psp": {
+      "idBrokerPsp": "intPspTest",
+      "idChannel": "canaleTest",
+      "idPsp": "pspTest",
+      "psp": "Test-PSP",
+      "pspPartitaIVA": "vat",
+      "pspFiscalCode": "pspTest",
+      "channelDescription": "NA"
+    },
+    "debtor": {
+      "fullName": "fullName",
+      "entityUniqueIdentifierType": "F",
+      "entityUniqueIdentifierValue": "entity",
+      "civicNumber": "civicNumber",
+      "postalCode": "postalCode",
+      "city": "city",
+      "stateProvinceRegion": "stateProvinceRegion",
+      "country": "IT",
+      "eMail": "mail@mail.it"
+    },
+    "paymentInfo": {
+      "paymentDateTime": "2023-05-03T10:08:15.691543",
+      "paymentToken": "4cafb6701a1d46c187740e4bdaff18e5",
+      "amount": 10.0,
+      "totalNotice": 1,
+      "touchpoint": "NA",
+      "remittanceInformation": "test",
+      "metadata": [
+        {
+          "key": "?",
+          "value": "?"
+        },
+        {
+          "key": "?2",
+          "value": "?2"
+        }
+      ]
+    },
+    "transferList": [
+      {
+        "idTransfer": "1",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 5.0,
+        "transferCategory": "transferCategory",
+        "remittanceInformation": "remittanceInformation",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false
+      },
+      {
+        "idTransfer": "2",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 5.0,
+        "transferCategory": "transferCategory",
+        "remittanceInformation": "remittanceInformation",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false
+      }
+    ]
+  },
+  {
+    "id": "d794266c-5644-463d-98b3-37350ae47044",
+    "version": "2",
+    "businessProcess": "mod3CancelV2ActorPerRequest",
+    "useCase": "11",
+    "reAwakable": false,
+    "complete": false,
+    "missingInfo": [
+      "paymentInfo.dueDate",
+      "paymentInfo.paymentMethod"
+    ],
+    "debtorPosition": {
+      "modelType": "2",
+      "noticeNumber": "001859385886688590",
+      "iuv": "859385886688590"
+    },
+    "creditor": {
+      "idPA": "12345678900",
+      "idBrokerPA": "intPaTest",
+      "idStation": "stazioneTest",
+      "companyName": "pa DEV ragsoc",
+      "officeName": "officeName"
+    },
+    "psp": {
+      "idBrokerPsp": "intPspTest",
+      "idChannel": "canaleTest",
+      "idPsp": "pspTest",
+      "psp": "Test-PSP",
+      "pspPartitaIVA": "vat",
+      "pspFiscalCode": "pspTest",
+      "channelDescription": "NA"
+    },
+    "debtor": {
+      "fullName": "fullName",
+      "entityUniqueIdentifierType": "F",
+      "entityUniqueIdentifierValue": "entity",
+      "civicNumber": "civicNumber",
+      "postalCode": "postalCode",
+      "city": "city",
+      "stateProvinceRegion": "stateProvinceRegion",
+      "country": "IT",
+      "eMail": "mail@mail.it"
+    },
+    "paymentInfo": {
+      "paymentDateTime": "2023-05-03T10:08:17.215136",
+      "paymentToken": "c336098535ae4735b3b4cd2928158340",
+      "amount": 10.0,
+      "totalNotice": 1,
+      "touchpoint": "NA",
+      "remittanceInformation": "test",
+      "metadata": [
+        {
+          "key": "?",
+          "value": "?"
+        },
+        {
+          "key": "?2",
+          "value": "?2"
+        }
+      ]
+    },
+    "transferList": [
+      {
+        "idTransfer": "1",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 5.0,
+        "transferCategory": "transferCategory",
+        "remittanceInformation": "remittanceInformation",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false
+      },
+      {
+        "idTransfer": "2",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 5.0,
+        "transferCategory": "transferCategory",
+        "remittanceInformation": "remittanceInformation",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false
+      }
+    ]
+  },
+  {
+    "id": "17939b80-7d9e-487f-932c-f62ad6a11e94",
+    "version": "2",
+    "businessProcess": "mod3CancelV2ActorPerRequest",
+    "useCase": "11",
+    "reAwakable": false,
+    "complete": false,
+    "missingInfo": [
+      "paymentInfo.dueDate",
+      "paymentInfo.paymentMethod"
+    ],
+    "debtorPosition": {
+      "modelType": "2",
+      "noticeNumber": "001949107283576281",
+      "iuv": "949107283576281"
+    },
+    "creditor": {
+      "idPA": "12345678900",
+      "idBrokerPA": "intPaTest",
+      "idStation": "stazioneTest",
+      "companyName": "pa DEV ragsoc",
+      "officeName": "officeName"
+    },
+    "psp": {
+      "idBrokerPsp": "intPspTest",
+      "idChannel": "canaleTest",
+      "idPsp": "pspTest",
+      "psp": "Test-PSP",
+      "pspPartitaIVA": "vat",
+      "pspFiscalCode": "pspTest",
+      "channelDescription": "NA"
+    },
+    "debtor": {
+      "fullName": "fullName",
+      "entityUniqueIdentifierType": "F",
+      "entityUniqueIdentifierValue": "entity",
+      "civicNumber": "civicNumber",
+      "postalCode": "postalCode",
+      "city": "city",
+      "stateProvinceRegion": "stateProvinceRegion",
+      "country": "IT",
+      "eMail": "mail@mail.it"
+    },
+    "paymentInfo": {
+      "paymentDateTime": "2023-05-03T10:08:18.707158",
+      "paymentToken": "1fca40c5bd364528a78428919b0ed345",
+      "amount": 10.0,
+      "totalNotice": 1,
+      "touchpoint": "NA",
+      "remittanceInformation": "test",
+      "metadata": [
+        {
+          "key": "?",
+          "value": "?"
+        },
+        {
+          "key": "?2",
+          "value": "?2"
+        }
+      ]
+    },
+    "transferList": [
+      {
+        "idTransfer": "1",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 5.0,
+        "transferCategory": "transferCategory",
+        "remittanceInformation": "remittanceInformation",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false
+      },
+      {
+        "idTransfer": "2",
+        "fiscalCodePA": "12345678900",
+        "companyName": "pa DEV ragsoc",
+        "amount": 5.0,
+        "transferCategory": "transferCategory",
+        "remittanceInformation": "remittanceInformation",
+        "IBAN": "IT96R0123454321000000012345",
+        "MBD": false
+      }
+    ]
+  }
+]

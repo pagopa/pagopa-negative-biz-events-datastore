@@ -17,27 +17,27 @@ public class NegativeBizEventsToEventHub {
 
   @FunctionName("NegativeBizEventsToEventHubProcessor")
   public void processNegativeBizEventsToEventHub(
-      @CosmosDBTrigger(
-          name = "BizEventDatastore",
-          databaseName = "db",
-          containerName = "negative-biz-events",
-          leaseContainerName = "negative-biz-events-leases",
-          createLeaseContainerIfNotExists = true,
-          maxItemsPerInvocation=100,
-          connection = "COSMOS_CONN_STRING") 
-      List<BizEvent> items,
-      @EventHubOutput(
-          name = "AwakableNegativeBizEventsHub", 
-          eventHubName = "", // blank because the value is included in the connection string
-          connection = "AWAKABLE_EVENTHUB_CONN_STRING")
-      OutputBinding<List<BizEvent>> awakableEvtMsg,
-      @EventHubOutput(
-          name = "FinalNegativeBizEventsHub", 
-          eventHubName = "", // blank because the value is included in the connection string
-          connection = "FINAL_EVENTHUB_CONN_STRING")
-      OutputBinding<List<BizEvent>> finalEvtMsg,
-      final ExecutionContext context
-      ) {
+          @CosmosDBTrigger(
+                  name = "NegativeBizEventsDatastore",
+                  databaseName = "db",
+                  containerName = "negative-biz-events",
+                  leaseContainerName = "negative-biz-events-leases",
+                  createLeaseContainerIfNotExists = true,
+                  maxItemsPerInvocation=100,
+                  connection = "COSMOS_CONN_STRING")
+          List<BizEvent> items,
+          @EventHubOutput(
+                  name = "AwakableNegativeBizEventsHub",
+                  eventHubName = "", // blank because the value is included in the connection string
+                  connection = "AWAKABLE_EVENTHUB_CONN_STRING")
+          OutputBinding<List<BizEvent>> awakableEvtMsg,
+          @EventHubOutput(
+                  name = "FinalNegativeBizEventsHub",
+                  eventHubName = "", // blank because the value is included in the connection string
+                  connection = "FINAL_EVENTHUB_CONN_STRING")
+          OutputBinding<List<BizEvent>> finalEvtMsg,
+          final ExecutionContext context
+  ) {
 
     List<BizEvent> finalItems = new ArrayList<>();
     List<BizEvent> reawakableItems = new ArrayList<>();
@@ -45,7 +45,7 @@ public class NegativeBizEventsToEventHub {
 
     String msg = String.format("BizEventEnrichment stat %s function - total events triggered %d", context.getInvocationId(),  items.size());
     logger.info(msg);
-    
+
     for (BizEvent be: items) {
       if (be.isReAwakable()) {
         reawakableItems.add(be);
@@ -54,7 +54,7 @@ public class NegativeBizEventsToEventHub {
         finalItems.add(be);
       }
     }
-    
+
     // call the Event Hub reawakable
     msg = String.format("BizEventEnrichment stat %s function - number of reawakable events sent to the event hub %d", context.getInvocationId(), reawakableItems.size());
     logger.info(msg);

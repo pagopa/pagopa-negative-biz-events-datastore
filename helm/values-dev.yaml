@@ -61,7 +61,7 @@ microservice-chart:
           type: Utilization # Allowed types are 'Utilization' or 'AverageValue'
           value: "75"
   envConfig:
-    WEBSITE_SITE_NAME: "pagopanegativebizevents" # required to show cloud role name in application insights
+    WEBSITE_SITE_NAME: "pagopanegativebizeventsdatastore" # required to show cloud role name in application insights
     FUNCTIONS_WORKER_RUNTIME: "java"
     COSMOS_DB_NAME: "db"
     COSMOS_DB_CONTAINER_NAME: "negative-biz-events"
@@ -71,11 +71,12 @@ microservice-chart:
     AWAKABLE_NEGATIVE_EVENT_HUB_NAME: "nodo-dei-pagamenti-negative-awakable-biz-evt"
     FINAL_NEGATIVE_EVENT_HUB_NAME: "nodo-dei-pagamenti-negative-final-biz-evt"
   envSecret:
+    AzureWebJobsStorage: 'bizevent-d-azurewebjobsstorage'
     APPLICATIONINSIGHTS_CONNECTION_STRING: 'ai-d-connection-string'
-    NEGATIVE_EVENT_HUB_RX_CONNECTION_STRING: 'ehub-d-rx-negative-biz-connection-string'
-    AWAKABLE_NEGATIVE_EVENT_HUB_TX_CONNECTION_STRING: 'ehub-d-tx-awakable-negative-biz-connection-string'
-    FINAL_NEGATIVE_EVENT_HUB_TX_CONNECTION_STRING: 'ehub-d-tx-final-negative-biz-connection-string'
-    COSMOS_DB_NEGATIVE_BIZ_CONNECTION_STRING: 'cosmos-d-negative-biz-connection-string'
+    NEGATIVE_EVENT_HUB_CONN_STRING: 'ehub-d-rx-negative-biz-connection-string'
+    AWAKABLE_EVENTHUB_CONN_STRING: 'ehub-d-tx-awakable-negative-biz-connection-string'
+    FINAL_EVENTHUB_CONN_STRING: 'ehub-d-tx-final-negative-biz-connection-string'
+    COSMOS_CONN_STRING: 'cosmos-d-negative-biz-connection-string'
   keyvault:
     name: "pagopa-d-bizevents-kv"
     tenantId: "7788edaf-0346-4068-9d79-c868aed15b3d"

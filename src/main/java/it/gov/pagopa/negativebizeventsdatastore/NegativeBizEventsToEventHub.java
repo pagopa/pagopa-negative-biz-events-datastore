@@ -27,12 +27,12 @@ public class NegativeBizEventsToEventHub {
           connection = "COSMOS_CONN_STRING") 
       List<BizEvent> items,
       @EventHubOutput(
-          name = "AwakableBizEventHub",
+          name = "AwakableNegativeBizEventsHub", 
           eventHubName = "", // blank because the value is included in the connection string
           connection = "AWAKABLE_EVENTHUB_CONN_STRING")
-      OutputBinding<List<BizEvent>> reawakableEvtMsg,
+      OutputBinding<List<BizEvent>> awakableEvtMsg,
       @EventHubOutput(
-          name = "FinalBizEventHub",
+          name = "FinalNegativeBizEventsHub", 
           eventHubName = "", // blank because the value is included in the connection string
           connection = "FINAL_EVENTHUB_CONN_STRING")
       OutputBinding<List<BizEvent>> finalEvtMsg,
@@ -58,7 +58,7 @@ public class NegativeBizEventsToEventHub {
     // call the Event Hub reawakable
     msg = String.format("BizEventEnrichment stat %s function - number of reawakable events sent to the event hub %d", context.getInvocationId(), reawakableItems.size());
     logger.info(msg);
-    reawakableEvtMsg.setValue(reawakableItems);
+    awakableEvtMsg.setValue(reawakableItems);
     // call the Event Hub final
     msg = String.format("BizEventEnrichment stat %s function - number of final events sent to the event hub %d", context.getInvocationId(), finalItems.size());
     logger.info(msg);

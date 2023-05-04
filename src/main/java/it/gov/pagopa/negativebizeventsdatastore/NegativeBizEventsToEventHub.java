@@ -18,7 +18,7 @@ public class NegativeBizEventsToEventHub {
   @FunctionName("NegativeBizEventsToEventHubProcessor")
   public void processNegativeBizEventsToEventHub(
       @CosmosDBTrigger(
-          name = "BizEventDatastore",
+          name = "NegativeBizEventsDatastore",
           databaseName = "db",
           containerName = "negative-biz-events",
           leaseContainerName = "negative-biz-events-leases",

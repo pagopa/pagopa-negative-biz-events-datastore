@@ -27,14 +27,14 @@ public class NegativeBizEventsToEventHub {
           connection = "COSMOS_CONN_STRING") 
       List<BizEvent> items,
       @EventHubOutput(
-          name = "PdndBizEventHub", 
+          name = "AwakableBizEventHub",
           eventHubName = "", // blank because the value is included in the connection string
-          connection = "PDND_EVENTHUB_CONN_STRING")
+          connection = "AWAKABLE_EVENTHUB_CONN_STRING")
       OutputBinding<List<BizEvent>> reawakableEvtMsg,
       @EventHubOutput(
-          name = "PdndBizEventHub", 
+          name = "FinalBizEventHub",
           eventHubName = "", // blank because the value is included in the connection string
-          connection = "PDND_EVENTHUB_CONN_STRING")
+          connection = "FINAL_EVENTHUB_CONN_STRING")
       OutputBinding<List<BizEvent>> finalEvtMsg,
       final ExecutionContext context
       ) {

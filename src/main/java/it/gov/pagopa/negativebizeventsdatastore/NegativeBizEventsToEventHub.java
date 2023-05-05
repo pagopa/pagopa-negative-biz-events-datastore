@@ -44,7 +44,7 @@ public class NegativeBizEventsToEventHub {
     List<BizEvent> reawakableItems = new ArrayList<>();
     Logger logger = context.getLogger();
 
-    String msg = String.format("BizEventEnrichment stat %s function - total events triggered %d", context.getInvocationId(),  items.size());
+    String msg = String.format("NegativeBizEventsToEventHub stat %s function - total events triggered %d", context.getInvocationId(),  items.size());
     logger.info(msg);
     
     for (BizEvent be: items) {
@@ -57,11 +57,11 @@ public class NegativeBizEventsToEventHub {
     }
     
     // call the Event Hub reawakable
-    msg = String.format("BizEventEnrichment stat %s function - number of reawakable events sent to the event hub %d", context.getInvocationId(), reawakableItems.size());
+    msg = String.format("NegativeBizEventsToEventHub stat %s function - number of reawakable events sent to the event hub %d", context.getInvocationId(), reawakableItems.size());
     logger.info(msg);
     awakableEvtMsg.setValue(reawakableItems);
     // call the Event Hub final
-    msg = String.format("BizEventEnrichment stat %s function - number of final events sent to the event hub %d", context.getInvocationId(), finalItems.size());
+    msg = String.format("NegativeBizEventsToEventHub stat %s function - number of final events sent to the event hub %d", context.getInvocationId(), finalItems.size());
     logger.info(msg);
     finalEvtMsg.setValue(finalItems);
   }

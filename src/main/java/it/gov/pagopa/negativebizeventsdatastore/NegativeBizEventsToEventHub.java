@@ -29,7 +29,7 @@ public class NegativeBizEventsToEventHub {
       @EventHubOutput(
           name = "AwakableNegativeBizEventsHub", 
           eventHubName = "", // blank because the value is included in the connection string
-          connection = "AWAKABLE_EVENTHUB_CONN_STRING")
+          connection = "FINAL_EVENTHUB_CONN_STRING")
       OutputBinding<List<BizEvent>> awakableEvtMsg,
       @EventHubOutput(
           name = "FinalNegativeBizEventsHub", 

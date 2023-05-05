@@ -32,7 +32,7 @@ class NegativeBizEventToDataStoreTest {
     @Test
     void runOk() {
         // test precondition
-        Logger logger = Logger.getLogger("BizEventToDataStore-test-logger");
+        Logger logger = Logger.getLogger("NegativeBizEventToDataStore-test-logger");
         when(context.getLogger()).thenReturn(logger);
 
         List<BizEvent> bizEvtMsg = new ArrayList<>();
@@ -52,7 +52,7 @@ class NegativeBizEventToDataStoreTest {
     @Test
     void runKo_differentSize() {
         // test precondition
-        Logger logger = Logger.getLogger("BizEventToDataStore-test-logger");
+        Logger logger = Logger.getLogger("NegativeBizEventToDataStore-test-logger");
         when(context.getLogger()).thenReturn(logger);
 
         List<BizEvent> bizEvtMsg = new ArrayList<>();

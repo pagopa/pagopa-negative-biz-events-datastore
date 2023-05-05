@@ -47,6 +47,8 @@ variables:
     poolImage: 'pagopa-dev-linux'
     appInsightsServiceConn: "$(TF_APPINSIGHTS_SERVICE_CONN_DEV)"
     appInsightsResourceId: "$(TF_APPINSIGHTS_RESOURCE_ID_DEV)"
+    cosmosDBPrimaryKey: "$(DEV_COSMOS_DB_PRIMARY_KEY)"
+    eventHubTxPrimaryKey: "$(DEV_EHUB_TX_PRIMARY_KEY)"
   ${{ if eq(parameters['ENV'], 'uat') }}:
     dockerRegistryServiceConnection: $(UAT_CONTAINER_REGISTRY_SERVICE_CONN)
     dockerRegistryFqdn: $(UAT_CONTAINER_NAMESPACE)
@@ -54,6 +56,8 @@ variables:
     poolImage: 'pagopa-uat-linux'
     appInsightsServiceConn: "$(TF_APPINSIGHTS_SERVICE_CONN_UAT)"
     appInsightsResourceId: "$(TF_APPINSIGHTS_RESOURCE_ID_UAT)"
+    cosmosDBPrimaryKey: "$(UAT_COSMOS_DB_PRIMARY_KEY)"
+    eventHubTxPrimaryKey: "$(UAT_EHUB_TX_PRIMARY_KEY)"
   ${{ if eq(parameters['ENV'], 'prod') }}:
     dockerRegistryServiceConnection: $(PROD_CONTAINER_REGISTRY_SERVICE_CONN)
     dockerRegistryFqdn: $(PROD_CONTAINER_NAMESPACE)
@@ -199,25 +203,31 @@ stages:
 
 
   # Run Tests
-#  - stage: Integration_Test
-#    dependsOn:
-#      - Deploy
-#    condition: and(succeeded(), eq('${{ parameters.TEST }}', 'true'))
-#    jobs:
-#      - job: integration_tests
-#        steps:
-#          - checkout: self
-#            persistCredentials: true
-#
-#          - script: |
-#              git checkout $(sourceBranch)
-#            displayName: Checkout and update branch
-#
-#          - task: Bash@3
-#            displayName: 'Run Integration Tests'
-#            inputs:
-#              targetType: 'inline'
-#              script: |
-#                cd ./integration-test/src
-#                yarn install
-#                yarn test:${{ parameters.ENV }}
+  - stage: Integration_Test
+    dependsOn:
+      - Deploy
+    condition: and(succeeded(), eq('${{ parameters.TEST }}', 'true'))
+    jobs:
+      - job: integration_tests
+        steps:
+          - checkout: self
+            persistCredentials: true
+
+          - script: |
+              git checkout $(sourceBranch)
+            displayName: Checkout and update branch
+
+          - task: Bash@3
+            displayName: 'Run Integration Tests'
+            inputs:
+              targetType: 'inline'
+              script: |
+                docker stop node_container && docker rm node_container
+                docker run -dit --name node_container node
+                docker cp ./integration-test/src node_container:/integration-test
+                docker exec -i node_container /bin/bash -c " \
+                cd integration-test
+                export EVENT_HUB_TX_PRIMARY_KEY=${{ variables.eventHubTxPrimaryKey }}
+                export COSMOS_DB_PRIMARY_KEY=${{ variables.cosmosDBPrimaryKey }}
+                yarn install
+                yarn test:${{ parameters.ENV }}"

@@ -50,3 +50,6 @@ obj/
 
 # Environment
 *.env
+
+# Terraform
+**/.terraform/

@@ -34,7 +34,7 @@ jobs:
           destination_repo: 'pagopa/pagopa-infra'
           destination_folder: 'src/domains/gps-app/api/payments-service/v1/rest/external/'
           destination_base_branch: 'main'
-          destination_head_branch: 'gpd-payments-swagger-update'
+          destination_head_branch: 'negative-biz-events-datastore-swagger-update'
           user_email: 'github-bot@pagopa.it'
           user_name: 'pagopa-github-bot'
           allow_force_push: 'true'

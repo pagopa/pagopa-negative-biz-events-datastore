@@ -14,7 +14,7 @@ on:
 
 env:
   NAMESPACE: gps
-  APP_NAME: pagopagpdpayments
+  APP_NAME: pagopanegativebizeventsdatastore
 
 
 permissions:

@@ -1,4 +1,4 @@
-const {post, del} = require("./common");
+const {post, del, createNegativeBizEvent} = require("./common");
 const cryptojs = require("crypto-js");
 
 const cosmos_db_uri = process.env.COSMOS_DB_URI; // the cosmos account URI
@@ -32,6 +32,24 @@ function getDocumentById(id) {
         ]
     }
 
+    return post(cosmos_db_uri+path, body, headers)
+}
+
+function createDocument(id, isAwakable) {  
+	let path = `dbs/${databaseId}/colls/${containerId}/docs`;
+	let resourceLink = `dbs/${databaseId}/colls/${containerId}`;
+	// resource type (colls, docs...)
+	let resourceType = "docs"
+	let date = new Date().toUTCString();
+	// request method (a.k.a. verb) to build text for authorization token
+    let verb = 'post';
+	let authorizationToken = getCosmosDBAuthorizationToken(verb,authorizationType,authorizationVersion,authorizationSignature,resourceType,resourceLink,date);
+	
+	let partitionKeyArray = "[\""+id+"\"]";
+	let headers = getCosmosDBAPIHeaders(authorizationToken, date, partitionKeyArray, 'application/json');
+
+    const body = createNegativeBizEvent(id, isAwakable);
+    
     return post(cosmos_db_uri+path, body, headers)
 }
 
@@ -85,5 +103,5 @@ function getCosmosDBAuthorizationToken(verb, autorizationType, autorizationVersi
 
 
 module.exports = {
-    getDocumentById, deleteDocument
+    getDocumentById, createDocument, deleteDocument
 }

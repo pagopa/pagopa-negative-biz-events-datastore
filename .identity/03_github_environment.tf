@@ -120,3 +120,12 @@ resource "github_actions_environment_secret" "secret_integration_test_ehub_tx_ne
   plaintext_value  = data.azurerm_key_vault_secret.key_vault_integration_ehub_tx_negative_biz_key[0].value
 }
 
+#tfsec:ignore:github-actions-no-plain-text-action-secrets # not real secret
+resource "github_actions_environment_secret" "secret_integration_test_ehub_rx_negative_biz_ke" {
+  count  = var.env_short != "p" ? 1 : 0
+  repository       = local.github.repository
+  environment      = var.env
+  secret_name      = "EVENT_HUB_RX_PRIMARY_KEY"
+  plaintext_value  = data.azurerm_key_vault_secret.key_vault_integration_ehub_rx_negative_biz_key[0].value
+}
+

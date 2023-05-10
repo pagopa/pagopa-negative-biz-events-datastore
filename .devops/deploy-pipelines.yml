@@ -228,6 +228,7 @@ stages:
                 docker exec -i node_container /bin/bash -c " \
                 cd integration-test
                 export EVENT_HUB_TX_PRIMARY_KEY=${{ variables.eventHubTxPrimaryKey }}
+                export EVENT_HUB_RX_PRIMARY_KEY=${{ variables.eventHubRxPrimaryKey }}
                 export COSMOS_DB_PRIMARY_KEY=${{ variables.cosmosDBPrimaryKey }}
                 yarn install
                 yarn test:${{ parameters.ENV }}"

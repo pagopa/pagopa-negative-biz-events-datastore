@@ -4,7 +4,9 @@ const crypto = require("crypto");
 const namespace       = process.env.EVENT_HUB_NAMESPACE;
 const eventHub        = process.env.EVENT_HUB_NAME;
 const eventHubSender  = process.env.EVENT_HUB_SENDER;
+const eventHubReceiver  = process.env.EVENT_HUB_RECEIVER;
 const eventHubTxKey     = process.env.EVENT_HUB_TX_PRIMARY_KEY;
+const eventHubRxKey     = process.env.EVENT_HUB_RX_PRIMARY_KEY;
 
 function publishEvent(event) {
     const path = `${namespace}.servicebus.windows.net`; // service bus path
@@ -13,6 +15,15 @@ function publishEvent(event) {
     const url = `https://${path}/${eventHub}/messages`;
 
     return post(url, event, headers);
+}
+
+function getEvent(event) {
+    const path = `${namespace}.servicebus.windows.net`; // service bus path
+    const tokenSAS = createSharedAccessToken("sb://"+path, eventHubReceiver, eventHubRxKey)
+    const headers = getEventHUBAPIHeaders(tokenSAS, path, 'application/json');
+    const url = `https://${path}/${eventHub}/messages`;
+
+    return get(url, event, headers);
 }
 
 function getEventHUBAPIHeaders(authorizationToken, host, contentType){
@@ -38,5 +49,6 @@ function createSharedAccessToken(uri, saName, saKey) {
 
 
 module.exports = {
-    publishEvent
+    publishEvent,
+    getEvent
 }

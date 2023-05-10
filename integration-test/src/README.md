@@ -47,7 +47,7 @@ Therefore, you have, based on the environment you want to test on, the following
 - ```yarn test:dev```
 - ```yarn test:uat```
 
-In the case of remote environments the COSMOS_DB_PRIMARY_KEY and EVENT_HUB_TX_PRIMARY_KEY **must not** be placed in `./config/.env.<environment>` files.
+In the case of remote environments the COSMOS_DB_PRIMARY_KEY, EVENT_HUB_TX_PRIMARY_KEY and EVENT_HUB_RX_PRIMARY_KEY **must not** be placed in `./config/.env.<environment>` files.
 It will be passed through the pipeline as described in the stage integration test of `deploy-pipelines.yml`
 
 _If some variables are security sensitive (eg. PRIMARY KEY) they must be manually inserted in the `.env.*` file before launching the test_

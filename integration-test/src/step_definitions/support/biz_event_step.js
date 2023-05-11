@@ -1,6 +1,6 @@
 const assert = require('assert');
 const {createNegativeBizEvent, sleep} = require("./common");
-const {publishEvent} = require("./event_hub_client");
+const {publishEvent, getEvent} = require("./event_hub_client");
 const {getDocumentById, createDocument, deleteDocument} = require("./datastore_client");
 const {After, Given, When, Then} = require('@cucumber/cucumber');
 
@@ -72,7 +72,8 @@ Then('the datastore returns the event with id {string}', async function (targetI
     assert.strictEqual(responseToCheck.data.Documents[0].id, targetId);
 });
 
-Then('the eventhub returns the event with id {string}', async function (targetId) {
-  responseToCheck = await getDocumentById(targetId);
+Then('the eventhub returns the {string} event with id {string}', async function (isAwakable, targetId) {
+  const event = createNegativeBizEvent(eventId, isAwakable);
+  responseToCheck = await getEvent(event);
   assert.strictEqual(responseToCheck.data.Documents[0].id, targetId);
 });

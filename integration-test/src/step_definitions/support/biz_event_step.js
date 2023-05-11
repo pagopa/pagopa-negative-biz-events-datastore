@@ -48,5 +48,6 @@ When('biz event has been properly stored into datastore after {int} ms', async f
 // Then
 Then('the datastore returns the event with id {string}', async function (targetId) {
     responseToCheck = await getDocumentById(targetId);
+    console.log(responseToCheck.data);
     assert.strictEqual(responseToCheck.data.Documents[0].id, targetId);
 });

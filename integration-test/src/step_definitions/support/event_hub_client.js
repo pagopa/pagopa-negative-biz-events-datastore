@@ -1,4 +1,4 @@
-const {post} = require("./common");
+const {post, get} = require("./common");
 const crypto = require("crypto");
 
 const namespace       = process.env.EVENT_HUB_NAMESPACE;

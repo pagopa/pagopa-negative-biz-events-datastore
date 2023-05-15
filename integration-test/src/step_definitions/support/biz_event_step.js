@@ -30,8 +30,7 @@ Given('a random {string} biz event with id {string} published on eventhub', asyn
           break;
         default:
           isAwakable = false;
-      }
-
+  }
 
     const event = createNegativeBizEvent(eventId, isAwakable);
     let responseToCheck =  await publishEvent(event);

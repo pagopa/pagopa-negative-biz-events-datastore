@@ -30,8 +30,7 @@ Given('a random {string} biz event with id {string} published on eventhub', asyn
           break;
         default:
           isAwakable = false;
-      }
-
+  }
 
     const event = createNegativeBizEvent(eventId, isAwakable);
     let responseToCheck =  await publishEvent(event);
@@ -48,5 +47,6 @@ When('biz event has been properly stored into datastore after {int} ms', async f
 // Then
 Then('the datastore returns the event with id {string}', async function (targetId) {
     responseToCheck = await getDocumentById(targetId);
+    console.log(responseToCheck.data);
     assert.strictEqual(responseToCheck.data.Documents[0].id, targetId);
 });

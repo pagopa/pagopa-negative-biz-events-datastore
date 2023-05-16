@@ -1,13 +1,17 @@
 const assert = require('assert');
 const {createNegativeBizEvent, sleep} = require("./common");
-const {publishEvent, getEvent} = require("./event_hub_client");
+const {publishEvent} = require("./event_hub_client");
 const {getDocumentById, createDocument, deleteDocument} = require("./datastore_client");
-const {After, Given, When, Then} = require('@cucumber/cucumber');
+const {After, Given, When, Then, setDefaultTimeout} = require('@cucumber/cucumber');
+const {createKafkaStream} = require("./kafka_listener");
 
 let eventId;
 
+let parsedMessage;
 
-// After each Scenario
+setDefaultTimeout(60 * 1000);
+
+//After each Scenario
 After(function () {
     // remove event
     deleteDocument(eventId)
@@ -40,21 +44,26 @@ Given('a random {string} biz event with id {string} published on eventhub', asyn
 });
 
 Given('a random {string} biz event with id {string}', async function (type, id) {
-      // prior cancellation to avoid dirty cases
-      await deleteDocument(id);
-      eventId = id;
       let isAwakable = false;
-
       switch (type) {
         case 'final':
           isAwakable = false;
+          var stream = (createKafkaStream(process.env.EVENT_HUB_NAME_FINAL, process.env.EVENT_HUB_FINAL_RX_CONNECTION_STRING));
           break;
         case 'awakable':
           isAwakable = true;
+          var stream = (createKafkaStream(process.env.EVENT_HUB_NAME_AWAKABLE, process.env.EVENT_HUB_AWAKABLE_RX_CONNECTION_STRING));
           break;
         default:
           isAwakable = false;
       }
+      stream.consumer.on('data', (message) => {parsedMessage = JSON.parse(message.value.toString())});
+      stream.pipe(process.stdout);
+      await sleep(10000);
+      
+      // prior cancellation to avoid dirty cases
+      await deleteDocument(id);
+      eventId = id;
 
       let responseToCheck =  await createDocument(id, isAwakable);
       assert.strictEqual(responseToCheck.status, 201);
@@ -72,8 +81,8 @@ Then('the datastore returns the event with id {string}', async function (targetI
     assert.strictEqual(responseToCheck.data.Documents[0].id, targetId);
 });
 
-Then('the eventhub returns the {string} event with id {string}', async function (isAwakable, targetId) {
-  const event = createNegativeBizEvent(eventId, isAwakable);
-  responseToCheck = await getEvent(event);
-  assert.strictEqual(responseToCheck.data.Documents[0].id, targetId);
+Then('the eventhub deletes the event with id {string}', async function (targetId) {
+    stream.destroy();
+    console.log("Result " + parsedMessage.id);
+    assert.strictEqual(parsedMessage.id, targetId);
 });

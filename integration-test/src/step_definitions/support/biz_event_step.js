@@ -5,7 +5,9 @@ const {getDocumentById, createDocument, deleteDocument} = require("./datastore_c
 const {After, Given, When, Then, setDefaultTimeout} = require('@cucumber/cucumber');
 const {createKafkaStream} = require("./kafka_listener");
 
-let eventId;
+let eventId = {
+  id
+};
 
 let parsedMessage;
 

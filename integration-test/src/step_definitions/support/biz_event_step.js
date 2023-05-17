@@ -58,7 +58,6 @@ Given('a random {string} biz event with id {string}', async function (type, id) 
           isAwakable = false;
       }
       stream.consumer.on('data', (message) => {parsedMessage = JSON.parse(message.value.toString())});
-      stream.pipe(process.stdout);
       await sleep(10000);
       
       // prior cancellation to avoid dirty cases
@@ -83,6 +82,5 @@ Then('the datastore returns the event with id {string}', async function (targetI
 
 Then('the eventhub deletes the event with id {string}', async function (targetId) {
     stream.destroy();
-    console.log("Result " + parsedMessage.id);
     assert.strictEqual(parsedMessage.id, targetId);
 });

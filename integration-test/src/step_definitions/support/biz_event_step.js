@@ -5,9 +5,7 @@ const {getDocumentById, createDocument, deleteDocument} = require("./datastore_c
 const {After, Given, When, Then, setDefaultTimeout} = require('@cucumber/cucumber');
 const {createKafkaStream} = require("./kafka_listener");
 
-let eventId = {
-  id: ''
-};
+let eventId;
 
 let parsedMessage;
 
@@ -47,7 +45,7 @@ Given('a random {string} biz event with id {string} published on eventhub', asyn
 
 Given('a random {string} biz event with id {string}', async function (type, id) {
       let isAwakable = false;
-      parsedMessage.id = '';
+      parsedMessage = null;
       switch (type) {
         case 'final':
           isAwakable = false;

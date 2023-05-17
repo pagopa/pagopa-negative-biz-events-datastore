@@ -7,9 +7,7 @@ const {createKafkaStream} = require("./kafka_listener");
 
 let eventId;
 
-let parsedMessage={
-  id: ''
-};
+let parsedMessage;
 
 setDefaultTimeout(60 * 1000);
 
@@ -47,6 +45,7 @@ Given('a random {string} biz event with id {string} published on eventhub', asyn
 
 Given('a random {string} biz event with id {string}', async function (type, id) {
       let isAwakable = false;
+      parsedMessage.id = '';
       switch (type) {
         case 'final':
           isAwakable = false;

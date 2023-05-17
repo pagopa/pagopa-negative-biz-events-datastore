@@ -7,7 +7,9 @@ const {createKafkaStream} = require("./kafka_listener");
 
 let eventId;
 
-let parsedMessage;
+let parsedMessage={
+  id: ''
+};
 
 setDefaultTimeout(60 * 1000);
 

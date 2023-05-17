@@ -81,7 +81,7 @@ Then('the datastore returns the event with id {string}', async function (targetI
     assert.strictEqual(responseToCheck.data.Documents[0].id, targetId);
 });
 
-Then('the eventhub deletes the event with id {string}', async function (targetId) {
+Then('the eventhub retrieves the event with id {string}', async function (targetId) {
     stream.destroy();
     assert.strictEqual(parsedMessage.id, targetId);
 });

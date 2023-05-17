@@ -6,7 +6,7 @@ const {After, Given, When, Then, setDefaultTimeout} = require('@cucumber/cucumbe
 const {createKafkaStream} = require("./kafka_listener");
 
 let eventId = {
-  id
+  id: ''
 };
 
 let parsedMessage;

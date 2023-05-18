@@ -9,12 +9,18 @@ let eventId;
 
 let parsedMessage;
 
-setDefaultTimeout(60 * 1000);
+let totalMessages = new Array();
+
+setDefaultTimeout(360 * 1000);
 
 //After each Scenario
 After(function () {
     // remove event
     deleteDocument(eventId)
+    let totalInsertion = 11;
+    for(let i = 0; i <= totalInsertion; i++){
+      deleteDocument(String(i));
+    }
 });
 
 // Given
@@ -70,18 +76,28 @@ Given('a random {string} biz event with id {string}', async function (type, id) 
 });
 
 Given('{int} random awakable and {int} final biz events', async function (numAwakable, numFinal) {
-      let totalMessages = new Array();
       var streamFinal = (createKafkaStream(process.env.EVENT_HUB_NAME_FINAL, process.env.EVENT_HUB_FINAL_RX_CONNECTION_STRING));
-      var streamAwakable = (createKafkaStream(process.env.EVENT_HUB_NAME_AWAKABLE, process.env.EVENT_HUB_AWAKABLE_RX_CONNECTION_STRING));
       streamFinal.consumer.on('data', (message) => {totalMessages.push(JSON.parse(message.value.toString()))});
-      streamAwakable.consumer.on('data', (message) => {totalMessages.push(JSON.parse(message.value.toString()))});
-      await sleep(10000);
+      await sleep(20000);
 
-      for (let i = 0; i < numAwakable + numFinal; i++) {
+      let i = 0;
+      for (i = 0; i < numFinal; i++) {
         await deleteDocument(String(i));
-        let responseToCheck =  await createDocument(String(i), isAwakable);
+        let responseToCheck =  await createDocument(String(i), false);
         assert.strictEqual(responseToCheck.status, 201);
+        await sleep(10000);
       }
+      streamFinal.destroy();
+      var streamAwakable = (createKafkaStream(process.env.EVENT_HUB_NAME_AWAKABLE, process.env.EVENT_HUB_AWAKABLE_RX_CONNECTION_STRING));
+      streamAwakable.consumer.on('data', (message) => {totalMessages.push(JSON.parse(message.value.toString()))});
+      await sleep(20000);
+      for (i = numFinal; i < numAwakable + numFinal; i++) {
+        await deleteDocument(String(i));
+        let responseToCheck =  await createDocument(String(i), true);
+        assert.strictEqual(responseToCheck.status, 201);
+        await sleep(5000);
+      }
+      streamAwakable.destroy();
 
 });
 
@@ -103,13 +119,11 @@ Then('the eventhub retrieves the event with id {string}', async function (target
 });
 
 Then('the eventhub retrieves the {int} awakable and {int} final events', async function (numAwakable, numFinal) {
-  streamFinal.destroy();
-  streamAwakable.destroy();
   let counterAwakable = 0, counterFinal = 0;
-  for(let i = 0; i < totalMessages.length(); i++){
-    if(totalMessages[i].reAwakable === "awakable"){
+  for(let i = 0; i < totalMessages.length; i++){
+    if(totalMessages[i].reAwakable === true){
       counterAwakable++;
-    } else if(totalMessages[i].reAwakable === "final"){
+    } else if(totalMessages[i].reAwakable === false){
       counterFinal++;
     }
   }

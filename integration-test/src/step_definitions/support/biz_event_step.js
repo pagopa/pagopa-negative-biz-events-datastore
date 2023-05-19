@@ -1,5 +1,5 @@
 const assert = require('assert');
-const {createNegativeBizEvent, sleep} = require("./common");
+const {createNegativeBizEvent, sleep, awakableCaseHandling} = require("./common");
 const {publishEvent} = require("./event_hub_client");
 const {getDocumentById, createDocument, deleteDocument} = require("./datastore_client");
 const {After, Given, When, Then, setDefaultTimeout} = require('@cucumber/cucumber');
@@ -29,19 +29,7 @@ Given('a random {string} biz event with id {string} published on eventhub', asyn
     // prior cancellation to avoid dirty cases
     await deleteDocument(id);
     eventId = id;
-    let isAwakable = false;
-
-    switch (type) {
-        case 'final':
-          isAwakable = false;
-          break;
-        case 'awakable':
-          isAwakable = true;
-          break;
-        default:
-          isAwakable = false;
-      }
-
+    let isAwakable = awakableCaseHandling(type);
 
     const event = createNegativeBizEvent(eventId, isAwakable);
     let responseToCheck =  await publishEvent(event);
@@ -50,19 +38,12 @@ Given('a random {string} biz event with id {string} published on eventhub', asyn
 });
 
 Given('a random {string} biz event with id {string}', async function (type, id) {
-      let isAwakable = false;
+      let isAwakable = awakableCaseHandling(type);
       parsedMessage = null;
-      switch (type) {
-        case 'final':
-          isAwakable = false;
-          var stream = (createKafkaStream(process.env.EVENT_HUB_NAME_FINAL, process.env.EVENT_HUB_FINAL_RX_CONNECTION_STRING));
-          break;
-        case 'awakable':
-          isAwakable = true;
-          var stream = (createKafkaStream(process.env.EVENT_HUB_NAME_AWAKABLE, process.env.EVENT_HUB_AWAKABLE_RX_CONNECTION_STRING));
-          break;
-        default:
-          isAwakable = false;
+      if(type === 'final'){
+        var stream = (createKafkaStream(process.env.EVENT_HUB_NAME_FINAL, process.env.EVENT_HUB_FINAL_RX_CONNECTION_STRING));
+      } else {
+        var stream = (createKafkaStream(process.env.EVENT_HUB_NAME_AWAKABLE, process.env.EVENT_HUB_AWAKABLE_RX_CONNECTION_STRING));
       }
       stream.consumer.on('data', (message) => {parsedMessage = JSON.parse(message.value.toString())});
       await sleep(10000);

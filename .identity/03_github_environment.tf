@@ -112,7 +112,7 @@ resource "github_actions_environment_secret" "secret_integration_test_cosmos_neg
 }
 
 #tfsec:ignore:github-actions-no-plain-text-action-secrets # not real secret
-resource "github_actions_environment_secret" "secret_integration_test_ehub_tx_negative_biz_ke" {
+resource "github_actions_environment_secret" "secret_integration_test_ehub_tx_negative_biz_key" {
   count  = var.env_short != "p" ? 1 : 0
   repository       = local.github.repository
   environment      = var.env
@@ -121,11 +121,21 @@ resource "github_actions_environment_secret" "secret_integration_test_ehub_tx_ne
 }
 
 #tfsec:ignore:github-actions-no-plain-text-action-secrets # not real secret
-resource "github_actions_environment_secret" "secret_integration_test_ehub_rx_negative_biz_ke" {
+resource "github_actions_environment_secret" "secret_integration_test_ehub_rx_negative_final_biz_conn_string" {
   count  = var.env_short != "p" ? 1 : 0
   repository       = local.github.repository
   environment      = var.env
-  secret_name      = "EVENT_HUB_RX_PRIMARY_KEY"
-  plaintext_value  = data.azurerm_key_vault_secret.key_vault_integration_ehub_rx_negative_biz_key[0].value
+  secret_name      = "EVENT_HUB_FINAL_RX_CONNECTION_STRING"
+  plaintext_value  = data.azurerm_key_vault_secret.key_vault_integration_ehub_rx_negative_final_biz_conn_string[0].value
 }
+
+#tfsec:ignore:github-actions-no-plain-text-action-secrets # not real secret
+resource "github_actions_environment_secret" "secret_integration_test_ehub_rx_negative_awakable_biz_conn_string" {
+  count  = var.env_short != "p" ? 1 : 0
+  repository       = local.github.repository
+  environment      = var.env
+  secret_name      = "EVENT_HUB_AWAKABLE_RX_CONNECTION_STRING"
+  plaintext_value  = data.azurerm_key_vault_secret.key_vault_integration_ehub_rx_negative_awakable_biz_conn_string[0].value
+}
+
 

@@ -1,5 +1,6 @@
-const {post, del, createNegativeBizEvent} = require("./common");
+const {post, del, sleep, createNegativeBizEvent} = require("./common");
 const cryptojs = require("crypto-js");
+const assert = require('assert');
 
 const cosmos_db_uri = process.env.COSMOS_DB_URI; // the cosmos account URI
 const databaseId             = process.env.COSMOS_DB_NAME;  // es. db
@@ -69,7 +70,6 @@ function deleteDocument(id) {
     return del(cosmos_db_uri+path, headers);
 }
 
-
 function getCosmosDBAPIHeaders(authorizationToken, date, partitionKeyArray, contentType){
 
     return {'Accept': 'application/json',
@@ -101,7 +101,16 @@ function getCosmosDBAuthorizationToken(verb, autorizationType, autorizationVersi
     return encodeURIComponent("type=" + autorizationType + "&ver=" + autorizationVersion + "&sig=" + signature_base64);
 }
 
+async function multipleInsertion(start, numEvents, isAwakable) {
+    console.log(isAwakable);
+    for (i = start; i < numEvents; i++) {
+        await deleteDocument(String(i));
+        let responseToCheck =  await createDocument(String(i), isAwakable);
+        assert.strictEqual(responseToCheck.status, 201);
+        await sleep(5000);
+    }
+}
 
 module.exports = {
-    getDocumentById, createDocument, deleteDocument
+    getDocumentById, createDocument, deleteDocument, multipleInsertion
 }

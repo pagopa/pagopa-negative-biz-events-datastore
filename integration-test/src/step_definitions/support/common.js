@@ -121,21 +121,8 @@ function createNegativeBizEvent(id, reAwakable) {
 }
 
 function awakableCaseHandling(type){
-    let isAwakable = false;
-
-    switch (type) {
-        case 'final':
-          isAwakable = false;
-          break;
-        case 'awakable':
-          isAwakable = true;
-          break;
-        default:
-          isAwakable = false;
-      }
-    return isAwakable;
+    return (type === 'awakable') ? (true) : (false);
 }
-
 
 module.exports = {
     get, post, put, del, createNegativeBizEvent, sleep, awakableCaseHandling

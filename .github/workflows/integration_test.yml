@@ -49,7 +49,6 @@ jobs:
           export CANARY=${{ inputs.canary }}
           export CUCUMBER_PUBLISH_TOKEN=${{ secrets.CUCUMBER_PUBLISH_TOKEN }}
           export EVENT_HUB_TX_PRIMARY_KEY=${{ secrets.EVENT_HUB_TX_PRIMARY_KEY }}
-          export EVENT_HUB_RX_PRIMARY_KEY=${{ secrets.EVENT_HUB_RX_PRIMARY_KEY }}
           export COSMOS_DB_PRIMARY_KEY=${{ secrets.COSMOS_DB_PRIMARY_KEY }}
           export EVENT_HUB_FINAL_RX_CONNECTION_STRING=${{secrets.EVENT_HUB_FINAL_RX_CONNECTION_STRING}}
           export EVENT_HUB_AWAKABLE_RX_CONNECTION_STRING=${{secrets.EVENT_HUB_AWAKABLE_RX_CONNECTION_STRING}}

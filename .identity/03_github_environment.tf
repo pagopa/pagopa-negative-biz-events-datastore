@@ -75,7 +75,7 @@ resource "github_actions_environment_secret" "cluster_name" {
   plaintext_value = local.aks_name
 }
 
-#tfsec:ignore:github-actions-no-plain-text-action-secrets # not real secret
+#tfsec:ignore:github-actions-no-plain-text-action-secrets 
 resource "github_actions_secret" "secret_sonar_token" {
   count  = var.env_short == "d" ? 1 : 0
 
@@ -84,7 +84,7 @@ resource "github_actions_secret" "secret_sonar_token" {
   plaintext_value  = data.azurerm_key_vault_secret.key_vault_sonar[0].value
 }
 
-#tfsec:ignore:github-actions-no-plain-text-action-secrets # not real secret
+#tfsec:ignore:github-actions-no-plain-text-action-secrets 
 resource "github_actions_secret" "secret_bot_token" {
   count  = var.env_short == "d" ? 1 : 0
 
@@ -102,7 +102,7 @@ resource "github_actions_secret" "secret_bot_token" {
 #  plaintext_value  = data.azurerm_key_vault_secret.key_vault_cucumber_token[0].value
 #}
 
-#tfsec:ignore:github-actions-no-plain-text-action-secrets # not real secret
+#tfsec:ignore:github-actions-no-plain-text-action-secrets 
 resource "github_actions_environment_secret" "secret_integration_test_cosmos_negative_biz_key" {
   count  = var.env_short != "p" ? 1 : 0
   repository       = local.github.repository
@@ -111,7 +111,7 @@ resource "github_actions_environment_secret" "secret_integration_test_cosmos_neg
   plaintext_value  = data.azurerm_key_vault_secret.key_vault_integration_cosmos_negative_biz_key[0].value
 }
 
-#tfsec:ignore:github-actions-no-plain-text-action-secrets # not real secret
+#tfsec:ignore:github-actions-no-plain-text-action-secrets 
 resource "github_actions_environment_secret" "secret_integration_test_ehub_tx_negative_biz_key" {
   count  = var.env_short != "p" ? 1 : 0
   repository       = local.github.repository
@@ -120,7 +120,7 @@ resource "github_actions_environment_secret" "secret_integration_test_ehub_tx_ne
   plaintext_value  = data.azurerm_key_vault_secret.key_vault_integration_ehub_tx_negative_biz_key[0].value
 }
 
-#tfsec:ignore:github-actions-no-plain-text-action-secrets # not real secret
+#tfsec:ignore:github-actions-no-plain-text-action-secrets 
 resource "github_actions_environment_secret" "secret_integration_test_ehub_rx_negative_final_biz_conn_string" {
   count  = var.env_short != "p" ? 1 : 0
   repository       = local.github.repository
@@ -129,7 +129,7 @@ resource "github_actions_environment_secret" "secret_integration_test_ehub_rx_ne
   plaintext_value  = data.azurerm_key_vault_secret.key_vault_integration_ehub_rx_negative_final_biz_conn_string[0].value
 }
 
-#tfsec:ignore:github-actions-no-plain-text-action-secrets # not real secret
+#tfsec:ignore:github-actions-no-plain-text-action-secrets 
 resource "github_actions_environment_secret" "secret_integration_test_ehub_rx_negative_awakable_biz_conn_string" {
   count  = var.env_short != "p" ? 1 : 0
   repository       = local.github.repository

@@ -103,8 +103,8 @@ function getCosmosDBAuthorizationToken(verb, autorizationType, autorizationVersi
 
 async function multipleInsertion(start, numEvents, isAwakable) {
     for (i = start; i < numEvents; i++) {
-        await deleteDocument(String(i));
-        let responseToCheck =  await createDocument(String(i), isAwakable);
+        await deleteDocument("test-id" + String(i));
+        let responseToCheck =  await createDocument("test-id" + String(i), isAwakable);
         assert.strictEqual(responseToCheck.status, 201);
         await sleep(5000);
     }

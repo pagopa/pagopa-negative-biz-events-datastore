@@ -19,7 +19,7 @@ After(function () {
     deleteDocument(eventId)
     let totalInsertion = 11;
     for(let i = 0; i <= totalInsertion; i++){
-      deleteDocument(String(i));
+      deleteDocument("test-id" + String(i));
     }
 });
 
@@ -79,11 +79,13 @@ Then('the eventhub retrieves the event with id {string}', async function (target
 Then('the eventhub retrieves the {int} awakable and {int} final events', async function (numAwakable, numFinal) {
   let counterAwakable = 0, counterFinal = 0;
   for(let i = 0; i < totalMessages.length; i++){
-    if(totalMessages[i].reAwakable === true){
-      counterAwakable++;
-    } else if(totalMessages[i].reAwakable === false){
-      counterFinal++;
-    }
+    if(totalMessages[i].id.startsWith('test-id')){
+      if(totalMessages[i].reAwakable === true){
+        counterAwakable++;
+      } else if(totalMessages[i].reAwakable === false){
+        counterFinal++;
+      }
+    } 
   }
   assert.strictEqual(numAwakable, counterAwakable);
   assert.strictEqual(numFinal, counterFinal);

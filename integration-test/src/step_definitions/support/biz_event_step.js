@@ -56,7 +56,6 @@ Given('a random {string} biz event with id {string}', async function (type, id) 
 
 Given('{int} random awakable and {int} final biz events', async function (numAwakable, numFinal) {
       await listenerMultipleInsertion(false, multipleInsertion, totalMessages, 0, numFinal);
-      await sleep(2000);
       await listenerMultipleInsertion(true, multipleInsertion, totalMessages, numFinal, numAwakable + numFinal);
 });
 
@@ -79,7 +78,6 @@ Then('the eventhub retrieves the event with id {string}', async function (target
 
 Then('the eventhub retrieves the {int} awakable and {int} final events', async function (numAwakable, numFinal) {
   let counterAwakable = 0, counterFinal = 0;
-  console.log(totalMessages.length);
   for(let i = 0; i < totalMessages.length; i++){
     if(totalMessages[i].reAwakable === true){
       counterAwakable++;

@@ -26,7 +26,7 @@ async function listenerMultipleInsertion(isAwakable, multipleInsertion, totalMes
     var stream = (createKafkaStream(process.env.EVENT_HUB_NAME_FINAL, process.env.EVENT_HUB_FINAL_RX_CONNECTION_STRING));
   }
   stream.consumer.on('data', (message) => {totalMessages.push(JSON.parse(message.value.toString()))});
-  await sleep(20000);
+  await sleep(15000);
   await multipleInsertion(start, numEvents, isAwakable);
   stream.destroy();
 }

@@ -1,9 +1,9 @@
 microservice-chart:
-  namespace: "<namespace>" # TODO
+  namespace: "bizevents"
   nameOverride: ""
   fullnameOverride: ""
   image:
-    repository: pagopaucommonacr.azurecr.io/pagopa<project-name>  # TODO
+    repository: pagopaucommonacr.azurecr.io/pagopanegativebizeventsdatastore
     tag: "0.0.1"
     pullPolicy: Always
   # https://github.com/Azure/azure-functions-host/blob/dev/src/WebJobs.Script.WebHost/Controllers/HostController.cs
@@ -29,8 +29,8 @@ microservice-chart:
     port: 80
   ingress:
     create: true
-    host: "weuuat.<namespace>.internal.uat.platform.pagopa.it"  # TODO
-    path: /pagopa-<project-name>-service/(.*) # TODO
+    host: "weuuat.bizevents.internal.uat.platform.pagopa.it"
+    path: /pagopa-negative-biz-events-datastore-service/(.*)
   serviceAccount:
     create: false
     annotations: {}
@@ -43,14 +43,14 @@ microservice-chart:
     allowPrivilegeEscalation: false
   resources:
     requests:
-      memory: "512Mi"
-      cpu: "0.25"
+      memory: "1512Mi"
+      cpu: "0.5"
     limits:
-      memory: "512Mi"
-      cpu: "0.25"
+      memory: "1512Mi"
+      cpu: "0.5"
   autoscaling:
     enable: true
-    minReplica: 3
+    minReplica: 1
     maxReplica: 10
     pollingInterval: 10 # seconds
     cooldownPeriod: 50 # seconds
@@ -61,13 +61,34 @@ microservice-chart:
           type: Utilization # Allowed types are 'Utilization' or 'AverageValue'
           value: "75"
   envConfig:
-    WEBSITE_SITE_NAME: "pagopa<project-name>" # required to show cloud role name in application insights # TODO
+    WEBSITE_SITE_NAME: "pagopanegativebizeventsdatastore" # required to show cloud role name in application insights
     FUNCTIONS_WORKER_RUNTIME: "java"
+    COSMOS_DB_NAME: "db"
+    COSMOS_DB_CONTAINER_NAME: "negative-biz-events"
+    COSMOS_DB_URI: "https://pagopa-u-weu-bizevents-neg-ds-cosmos-account.documents.azure.com:443/"
+    EVENT_HUB_NAMESPACE_1: "pagopa-u-evh-ns01"
+    EVENT_HUB_NAMESPACE_2: "pagopa-u-evh-ns02"
+    NEGATIVE_EVENT_HUB_NAME: "nodo-dei-pagamenti-negative-biz-evt"
+    AWAKABLE_NEGATIVE_EVENT_HUB_NAME: "nodo-dei-pagamenti-negative-awakable-biz-evt"
+    FINAL_NEGATIVE_EVENT_HUB_NAME: "nodo-dei-pagamenti-negative-final-biz-evt"
   envSecret:
-    APPLICATIONINSIGHTS_CONNECTION_STRING: 'ai-d-connection-string' # TODO set in kv
+    AzureWebJobsStorage: 'bizevent-u-azurewebjobsstorage'
+    APPLICATIONINSIGHTS_CONNECTION_STRING: 'ai-u-connection-string'
+    NEGATIVE_EVENT_HUB_CONN_STRING: 'ehub-u-rx-negative-biz-connection-string'
+    AWAKABLE_EVENTHUB_CONN_STRING: 'ehub-u-tx-awakable-negative-biz-connection-string'
+    FINAL_EVENTHUB_CONN_STRING: 'ehub-u-tx-final-negative-biz-connection-string'
+    COSMOS_CONN_STRING: 'cosmos-u-negative-biz-connection-string'
   keyvault:
-    name: "pagopa-u-<namespace>-kv" # TODO
+    name: "pagopa-u-bizevents-kv"
     tenantId: "7788edaf-0346-4068-9d79-c868aed15b3d"
   nodeSelector: {}
   tolerations: []
-  affinity: {}
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: node_type
+                operator: In
+                values:
+                  - "user"

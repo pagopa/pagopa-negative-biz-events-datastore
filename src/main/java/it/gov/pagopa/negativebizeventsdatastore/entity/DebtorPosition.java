@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class DebtorPosition {
-	private String modelType;
-	private String noticeNumber;
-	private String iuv;
+  private String modelType;
+  private String noticeNumber;
+  private String iuv;
 }

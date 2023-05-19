@@ -120,7 +120,10 @@ function createNegativeBizEvent(id, reAwakable) {
     return json_event
 }
 
+function awakableCaseHandling(type){
+    return (type === 'awakable') ? (true) : (false);
+}
 
 module.exports = {
-    get, post, put, del, createNegativeBizEvent, sleep
+    get, post, put, del, createNegativeBizEvent, sleep, awakableCaseHandling
 }

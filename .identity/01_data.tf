@@ -66,3 +66,15 @@ data "azurerm_key_vault_secret" "key_vault_integration_ehub_tx_negative_biz_key"
   name = format("ehub-tx-%s-negative-biz-key", var.env_short)
   key_vault_id = data.azurerm_key_vault.domain_key_vault[0].id
 }
+
+data "azurerm_key_vault_secret" "key_vault_integration_ehub_rx_negative_final_biz_conn_string" {
+  count  = var.env_short != "p" ? 1 : 0
+  name = format("ehub-rx-%s-negative-final-biz-conn-string", var.env_short)
+  key_vault_id = data.azurerm_key_vault.domain_key_vault[0].id
+}
+
+data "azurerm_key_vault_secret" "key_vault_integration_ehub_rx_negative_awakable_biz_conn_string" {
+  count  = var.env_short != "p" ? 1 : 0
+  name = format("ehub-rx-%s-negative-awakable-biz-conn-string", var.env_short)
+  key_vault_id = data.azurerm_key_vault.domain_key_vault[0].id
+}

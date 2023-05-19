@@ -2,7 +2,6 @@ package it.gov.pagopa.negativebizeventsdatastore.entity;
 
 import java.math.BigDecimal;
 import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,13 +14,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class PaymentInfo {
-	private String paymentDateTime;
-	private String dueDate;
-	private String paymentToken;
-	private BigDecimal amount;
-	private Long totalNotice;
-	private String paymentMethod;
-    private String touchpoint;
-    private String remittanceInformation;
-    private List<MapEntry> metadata;	
+  private String paymentDateTime;
+  private String dueDate;
+  private String paymentToken;
+  private BigDecimal amount;
+  private Long totalNotice;
+  private String paymentMethod;
+  private String touchpoint;
+  private String remittanceInformation;
+  private List<MapEntry> metadata;
 }

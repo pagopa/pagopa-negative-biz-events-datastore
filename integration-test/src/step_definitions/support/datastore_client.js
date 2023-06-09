@@ -21,7 +21,7 @@ function getDocumentById(id) {
     const authorizationToken = getCosmosDBAuthorizationToken(verb,authorizationType,authorizationVersion,authorizationSignature,resourceType,resourceLink,date);
 
     let partitionKeyArray = [];
-    const headers = getCosmosDBAPIHeaders(authorizationToken, date, partitionKeyArray, 'application/query+json');
+    const headers = getCosmosDBAPIHeaders(authorizationToken, date, partitionKeyArray, 'application/query+json', 'true');
 
     const body = {
         "query": "SELECT * FROM c where c.id=@id",
@@ -47,7 +47,7 @@ function createDocument(id, isAwakable) {
 	let authorizationToken = getCosmosDBAuthorizationToken(verb,authorizationType,authorizationVersion,authorizationSignature,resourceType,resourceLink,date);
 	
 	let partitionKeyArray = "[\""+id+"\"]";
-	let headers = getCosmosDBAPIHeaders(authorizationToken, date, partitionKeyArray, 'application/json');
+	let headers = getCosmosDBAPIHeaders(authorizationToken, date, partitionKeyArray, 'application/json', 'false');
 
     const body = createNegativeBizEvent(id, isAwakable);
     
@@ -65,19 +65,19 @@ function deleteDocument(id) {
     let authorizationToken = getCosmosDBAuthorizationToken(verb,authorizationType,authorizationVersion,authorizationSignature,resourceType,resourceLink,date);
 
     let partitionKeyArray = "[\""+id+"\"]";
-    let headers = getCosmosDBAPIHeaders(authorizationToken, date, partitionKeyArray, 'application/json');
+    let headers = getCosmosDBAPIHeaders(authorizationToken, date, partitionKeyArray, 'application/json', 'false');
 
     return del(cosmos_db_uri+path, headers);
 }
 
-function getCosmosDBAPIHeaders(authorizationToken, date, partitionKeyArray, contentType){
+function getCosmosDBAPIHeaders(authorizationToken, date, partitionKeyArray, contentType, isQuery){
 
     return {'Accept': 'application/json',
         'Content-Type': contentType,
         'Authorization': authorizationToken,
         'x-ms-version': cosmosDBApiVersion,
         'x-ms-date': date,
-        'x-ms-documentdb-isquery': 'true',
+        'x-ms-documentdb-isquery': isQuery,
         'x-ms-query-enable-crosspartition': 'true',
         'x-ms-documentdb-partitionkey': partitionKeyArray
     };

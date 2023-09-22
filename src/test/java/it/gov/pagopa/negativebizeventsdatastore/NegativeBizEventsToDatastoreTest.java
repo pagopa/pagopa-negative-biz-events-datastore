@@ -1,22 +1,27 @@
 package it.gov.pagopa.negativebizeventsdatastore;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.microsoft.azure.functions.ExecutionContext;
-import com.microsoft.azure.functions.OutputBinding;
-import it.gov.pagopa.negativebizeventsdatastore.entity.BizEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.microsoft.azure.functions.ExecutionContext;
+import com.microsoft.azure.functions.OutputBinding;
+
+import it.gov.pagopa.negativebizeventsdatastore.entity.BizEvent;
 
 @ExtendWith(MockitoExtension.class)
 class NegativeBizEventToDataStoreTest {
@@ -38,6 +43,9 @@ class NegativeBizEventToDataStoreTest {
     @SuppressWarnings("unchecked")
     OutputBinding<List<BizEvent>> document =
         (OutputBinding<List<BizEvent>>) mock(OutputBinding.class);
+    
+    doReturn(null).when(function).findByBizEventId(anyString());
+    doReturn("OK").when(function).saveBizEventId(anyString());
 
     // test execution
     function.processBizEvent(bizEvtMsg, properties, document, context);
@@ -65,5 +73,27 @@ class NegativeBizEventToDataStoreTest {
 
     // test assertion -> this line means the call was successful
     assertTrue(true);
+  }
+  
+  @Test
+  void runNegativeBizEventAlreadyInCache() {
+      // test precondition
+      Logger logger = Logger.getLogger("NegativeBizEventToDataStore-test-logger");
+      when(context.getLogger()).thenReturn(logger);
+      
+      List<BizEvent> bizEvtMsg = new ArrayList<>();
+      bizEvtMsg.add (BizEvent.builder().id("123").build());
+      
+      Map<String, Object>[] properties = new HashMap[1];
+      @SuppressWarnings("unchecked")
+      OutputBinding<List<BizEvent>> document = (OutputBinding<List<BizEvent>>)mock(OutputBinding.class);
+      
+      doReturn("123").when(function).findByBizEventId(anyString());
+
+      // test execution
+      function.processBizEvent(bizEvtMsg, properties, document, context);
+
+      // test assertion -> this line means the call was successful
+      assertTrue(true);
   }
 }

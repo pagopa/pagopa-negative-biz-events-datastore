@@ -17,6 +17,7 @@
         <azure.functions.java.library.version>3.0.0</azure.functions.java.library.version>
         <functionAppName>com.microsoft.azure-20220215182005862</functionAppName>
         <resteasy.version>3.15.3.Final</resteasy.version>
+        <jedis.version>5.0.0</jedis.version>
     </properties>
 
     <dependencies>
@@ -33,6 +34,16 @@
         </dependency>
 
         <!-- End Azure -->
+        
+        <!-- REDIS -->
+
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${jedis.version}</version>
+		</dependency>
+
+		<!-- End REDIS -->
 
         <!-- Test -->
         <dependency>

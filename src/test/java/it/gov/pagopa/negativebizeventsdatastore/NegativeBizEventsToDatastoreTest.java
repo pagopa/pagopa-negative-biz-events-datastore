@@ -22,6 +22,8 @@ import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.OutputBinding;
 
 import it.gov.pagopa.negativebizeventsdatastore.entity.BizEvent;
+import it.gov.pagopa.negativebizeventsdatastore.entity.DebtorPosition;
+import it.gov.pagopa.negativebizeventsdatastore.entity.PaymentInfo;
 
 @ExtendWith(MockitoExtension.class)
 class NegativeBizEventToDataStoreTest {
@@ -35,9 +37,12 @@ class NegativeBizEventToDataStoreTest {
     // test precondition
     Logger logger = Logger.getLogger("NegativeBizEventToDataStore-test-logger");
     when(context.getLogger()).thenReturn(logger);
+    
+    PaymentInfo pi = PaymentInfo.builder().build();
+    DebtorPosition dp = DebtorPosition.builder().iuv("iuv").build();
 
     List<BizEvent> bizEvtMsg = new ArrayList<>();
-    bizEvtMsg.add(new BizEvent());
+    bizEvtMsg.add (BizEvent.builder().id("123").paymentInfo(pi).debtorPosition(dp).build());
 
     Map<String, Object>[] properties = new HashMap[1];
     @SuppressWarnings("unchecked")

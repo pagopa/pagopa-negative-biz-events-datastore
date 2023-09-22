@@ -30,7 +30,7 @@ public class NegativeBizEventToDatastore {
 	private final int expireTimeInMS = 
 			System.getenv("REDIS_EXPIRE_TIME_MS") != null ? Integer.parseInt(System.getenv("REDIS_EXPIRE_TIME_MS")) : 3600000;
 
-	private static final String REDIS_ID_PREFIX = "negativebiz_";
+	private static final String REDIS_ID_PREFIX = "negbiz_";
 
 	@FunctionName("EventHubBizEventProcessor")
 	public void processBizEvent(

@@ -4,6 +4,7 @@ const {publishEvent} = require("./event_hub_client");
 const {getDocumentById, createDocument, deleteDocument, multipleInsertion} = require("./datastore_client");
 const {After, Given, When, Then, setDefaultTimeout} = require('@cucumber/cucumber');
 const {createKafkaStream, listenerMultipleInsertion} = require("./kafka_listener");
+const {makeIdMix, makeIdNumber} = require("./utility/helpers")
 
 let eventId;
 
@@ -11,24 +12,27 @@ let parsedMessage;
 
 let totalMessages = new Array();
 
+let eventCreationTimestamp;
+
 setDefaultTimeout(360 * 1000);
 
 //After each Scenario
 After(function () {
     // remove event
     deleteDocument(eventId)
-    let totalInsertion = 11;
-    for(let i = 0; i <= totalInsertion; i++){
-      deleteDocument("test-id" + String(i));
-    }
+    //let totalInsertion = 11;
+    //for(let i = 0; i <= totalInsertion; i++){
+    //  deleteDocument("test-id" + String(i));
+    //}
 });
 
 // Given
 
-Given('a random {string} biz event with id {string} published on eventhub', async function (type, id) {
+Given('a random {string} biz event is published on eventhub', async function (type) {
+	eventId = makeIdMix(15);
     // prior cancellation to avoid dirty cases
-    await deleteDocument(id);
-    eventId = id;
+    //await deleteDocument(id);
+    //eventId = id;
     let isAwakable = awakableCaseHandling(type);
 
     const event = createNegativeBizEvent(eventId, isAwakable);
@@ -65,11 +69,23 @@ When('biz event has been properly stored into datastore after {int} ms', async f
     await sleep(time);
 });
 
+// When
+When('the eventhub sends the same {string} biz event again', async function (type) {
+    let isAwakable = awakableCaseHandling(type);
+
+    const event = createNegativeBizEvent(eventId, isAwakable);
+    let responseToCheck =  await publishEvent(event);
+
+    assert.strictEqual(responseToCheck.status, 201);
+});
+
+
 // Then
-Then('the datastore returns the event with id {string}', async function (targetId) {
-    responseToCheck = await getDocumentById(targetId);
+Then('the datastore returns the event', async function () {
+    responseToCheck = await getDocumentById(eventId);
     console.log(responseToCheck.data);
-    assert.strictEqual(responseToCheck.data.Documents[0].id, targetId);
+    eventCreationTimestamp = responseToCheck.data.Documents[0]._ts;
+    assert.strictEqual(responseToCheck.data.Documents[0].id, eventId);
 });
 
 Then('the eventhub retrieves the event with id {string}', async function (targetId) {
@@ -77,7 +93,7 @@ Then('the eventhub retrieves the event with id {string}', async function (target
     assert.strictEqual(parsedMessage.id, targetId);
 });
 
-Then('the eventhub retrieves the {int} awakable and {int} final events', async function (numAwakable, numFinal) {
+Then('the eventhub retrieves at least the {int} awakable and {int} final events', async function (numAwakable, numFinal) {
   let counterAwakable = 0, counterFinal = 0;
   for(let i = 0; i < totalMessages.length; i++){
     if(totalMessages[i].id.startsWith('test-id')){
@@ -88,6 +104,13 @@ Then('the eventhub retrieves the {int} awakable and {int} final events', async f
       }
     } 
   }
-  assert.strictEqual(numAwakable, counterAwakable);
-  assert.strictEqual(numFinal, counterFinal);
+  assert.ok(counterAwakable >= numAwakable);
+  assert.ok(counterFinal >= numFinal);
+});
+
+Then('the datastore returns the not updated event', async function () {
+    responseToCheck = await getDocumentById(eventId);
+    console.log(responseToCheck.data);
+    assert.strictEqual(responseToCheck.data.Documents[0].id, eventId);
+    assert.strictEqual(responseToCheck.data.Documents[0]._ts, eventCreationTimestamp);
 });

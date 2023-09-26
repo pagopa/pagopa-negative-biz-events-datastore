@@ -20,19 +20,13 @@ setDefaultTimeout(360 * 1000);
 After(function () {
     // remove event
     deleteDocument(eventId)
-    //let totalInsertion = 11;
-    //for(let i = 0; i <= totalInsertion; i++){
-    //  deleteDocument("test-id" + String(i));
-    //}
 });
 
 // Given
 
 Given('a random {string} biz event is published on eventhub', async function (type) {
 	eventId = makeIdMix(15);
-    // prior cancellation to avoid dirty cases
-    //await deleteDocument(id);
-    //eventId = id;
+  
     let isAwakable = awakableCaseHandling(type);
 
     const event = createNegativeBizEvent(eventId, isAwakable);
@@ -49,6 +43,8 @@ Given('a random {string} biz event with id {string}', async function (type, id) 
                     (createKafkaStream(process.env.EVENT_HUB_NAME_AWAKABLE, process.env.EVENT_HUB_AWAKABLE_RX_CONNECTION_STRING));
       stream.consumer.on('data', (message) => {parsedMessage = JSON.parse(message.value.toString())});
       await sleep(10000);
+      
+      console.log("***parsedMessage", parsedMessage);
       
       // prior cancellation to avoid dirty cases
       await deleteDocument(id);
@@ -83,7 +79,6 @@ When('the eventhub sends the same {string} biz event again', async function (typ
 // Then
 Then('the datastore returns the event', async function () {
     responseToCheck = await getDocumentById(eventId);
-    console.log(responseToCheck.data);
     eventCreationTimestamp = responseToCheck.data.Documents[0]._ts;
     assert.strictEqual(responseToCheck.data.Documents[0].id, eventId);
 });
@@ -110,7 +105,6 @@ Then('the eventhub retrieves at least the {int} awakable and {int} final events'
 
 Then('the datastore returns the not updated event', async function () {
     responseToCheck = await getDocumentById(eventId);
-    console.log(responseToCheck.data);
     assert.strictEqual(responseToCheck.data.Documents[0].id, eventId);
     assert.strictEqual(responseToCheck.data.Documents[0]._ts, eventCreationTimestamp);
 });

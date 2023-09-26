@@ -44,8 +44,6 @@ Given('a random {string} biz event with id {string}', async function (type, id) 
       stream.consumer.on('data', (message) => {parsedMessage = JSON.parse(message.value.toString())});
       await sleep(10000);
       
-      console.log("***parsedMessage", parsedMessage);
-      
       // prior cancellation to avoid dirty cases
       await deleteDocument(id);
       eventId = id;

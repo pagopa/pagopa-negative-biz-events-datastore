@@ -4,7 +4,7 @@ microservice-chart:
   fullnameOverride: ""
   image:
     repository: ghcr.io/pagopa/pagopa-negative-biz-events-datastore
-    tag: "0.1.0"
+    tag: "0.1.0-2-PAGOPA-1241-check-redis-cache"
     pullPolicy: Always
   # https://github.com/Azure/azure-functions-host/blob/dev/src/WebJobs.Script.WebHost/Controllers/HostController.cs
   livenessProbe:
@@ -71,6 +71,9 @@ microservice-chart:
     NEGATIVE_EVENT_HUB_NAME: "nodo-dei-pagamenti-negative-biz-evt"
     AWAKABLE_NEGATIVE_EVENT_HUB_NAME: "nodo-dei-pagamenti-negative-awakable-biz-evt"
     FINAL_NEGATIVE_EVENT_HUB_NAME: "nodo-dei-pagamenti-negative-final-biz-evt"
+    REDIS_HOST: "pagopa-u-redis.redis.cache.windows.net"
+    REDIS_PORT: "6380"
+    REDIS_EXPIRE_TIME_MS: "3600000" # an hour
   envSecret:
     AzureWebJobsStorage: 'bizevent-u-azurewebjobsstorage'
     APPLICATIONINSIGHTS_CONNECTION_STRING: 'ai-u-connection-string'
@@ -78,6 +81,11 @@ microservice-chart:
     AWAKABLE_EVENTHUB_CONN_STRING: 'ehub-u-tx-awakable-negative-biz-connection-string'
     FINAL_EVENTHUB_CONN_STRING: 'ehub-u-tx-final-negative-biz-connection-string'
     COSMOS_CONN_STRING: 'cosmos-u-negative-biz-connection-string'
+    REDIS_PWD: "redis-password"
+    COSMOS_DB_PRIMARY_KEY: "cosmos-d-negative-biz-key"
+    EVENT_HUB_TX_PRIMARY_KEY: "ehub-tx-d-negative-biz-key"
+    EVENT_HUB_AWAKABLE_RX_CONNECTION_STRING: "ehub-rx-d-negative-awakable-biz-conn-string"
+    EVENT_HUB_FINAL_RX_CONNECTION_STRING: "ehub-rx-d-negative-final-biz-conn-string"
   keyvault:
     name: "pagopa-u-bizevents-kv"
     tenantId: "7788edaf-0346-4068-9d79-c868aed15b3d"
@@ -96,3 +104,4 @@ microservice-chart:
     deployment:
       image:
         tag: 0.1.0
+    create: false

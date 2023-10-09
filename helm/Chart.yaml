@@ -6,5 +6,5 @@ version: 0.6.0
 appVersion: 0.1.0-2-PAGOPA-1241-check-redis-cache
 dependencies:
   - name: microservice-chart
-    version: 1.21.0
+    version: 2.4.0
     repository: "https://pagopa.github.io/aks-microservice-chart-blueprint"

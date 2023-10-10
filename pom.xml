@@ -5,7 +5,7 @@
 
     <groupId>it.gov.pagopa.negativebizeventsdatastore</groupId>
     <artifactId>negative-biz-events-datastore-function</artifactId>
-    <version>0.1.0-3-PAGOPA-1263-neg-broken-pipe-redis</version>
+    <version>0.1.0-4-PAGOPA-1263-neg-broken-pipe-redis</version>
     <packaging>jar</packaging>
 
     <name>Negative Biz Events Datastore Fn</name>

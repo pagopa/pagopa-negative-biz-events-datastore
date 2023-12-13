@@ -1,42 +1,109 @@
-# pagoPA Functions template
+# Negative BizEvents Datastore
 
-Java template to create an Azure Function.
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=pagopa_pagopa-negative-biz-events-datastore&metric=alert_status)](https://sonarcloud.io/dashboard?id=pagopa_pagopa-negative-biz-events-datastore)
+[![Integration Tests](https://github.com/pagopa/pagopa-negative-biz-events-datastore/actions/workflows/integration_test.yml/badge.svg?branch=main)](https://github.com/pagopa/pagopa-negative-biz-events-datastore/actions/workflows/integration_test.yml)
 
-## Function examples
-There is an example of a Http Trigger function.
+
+- [Negative BizEvents Datastore](#negative-bizevents-datastore)
+  * [Api Documentation 📖](#api-documentation---)
+  * [Technology Stack](#technology-stack)
+  * [Start Project Locally 🚀](#start-project-locally---)
+    + [Prerequisites](#prerequisites)
+    + [Run docker container](#run-docker-container)
+  * [Develop Locally 💻](#develop-locally---)
+    + [Prerequisites](#prerequisites-1)
+    + [Run the project](#run-the-project)
+    + [Spring Profiles](#spring-profiles)
+    + [Testing 🧪](#testing---)
+      - [Unit testing](#unit-testing)
+      - [Integration testing](#integration-testing)
+      - [Performance testing](#performance-testing)
+  * [Contributors 👥](#contributors---)
+    + [Mainteiners](#mainteiners)
+
 
 ---
 
-## Run locally with Docker
-`docker build -t pagopa-functions-template .`
+## Api Documentation 📖
 
-`docker run -p 8999:80 pagopa-functions-template`
-
-### Test
-`curl http://localhost:8999/example`
-
-## Run locally with Maven
-
-`mvn clean package`
-
-`mvn azure-functions:run`
-
-### Test
-`curl http://localhost:7071/example` 
+See the [OpenApi 3 here.](https://editor.swagger.io/?url=https://raw.githubusercontent.com/pagopa/<TODO-repo>/main/openapi/openapi.json)
 
 ---
 
+## Technology Stack
 
-## TODO
-Once cloned the repo, you should:
-- to deploy on standard Azure service:
-  - rename `deploy-pipelines-standard.yml` to `deploy-pipelines.yml`
-  - remove `helm` folder
-- to deploy on Kubernetes:
-  - rename `deploy-pipelines-aks.yml` to `deploy-pipelines.yml`
-  - customize `helm` configuration
-- configure the following GitHub action in `.github` folder: 
-  - `deploy.yml`
-  - `sonar_analysis.yml`
+- Java 11
+- Spring Boot
+- Spring Web
+- Hibernate
+- JPA
+- ...
+- TODO
 
-Configure the SonarCloud project :point_right: [guide](https://pagopa.atlassian.net/wiki/spaces/DEVOPS/pages/147193860/SonarCloud+experimental).
+---
+
+## Start Project Locally 🚀
+
+### Prerequisites
+
+- docker
+
+### Run docker container
+
+from `./docker` directory
+
+`sh ./run_docker.sh local`
+
+ℹ️ Note: for PagoPa ACR is required the login `az acr login -n <acr-name>`
+
+---
+
+## Develop Locally 💻
+
+### Prerequisites
+
+- git
+- maven
+- jdk-11
+
+### Run the project
+
+Start the springboot application with this command:
+
+`mvn spring-boot:run -Dspring-boot.run.profiles=local`
+
+### Spring Profiles
+
+- **local**: to develop locally.
+- _default (no profile set)_: The application gets the properties from the environment (for Azure).
+
+### Testing 🧪
+
+#### Unit testing
+
+To run the **Junit** tests:
+
+`mvn clean verify`
+
+#### Integration testing
+
+From `./integration-test/src`
+
+1. `yarn install`
+2. `yarn test`
+
+#### Performance testing
+
+install [k6](https://k6.io/) and then from `./performance-test/src`
+
+1. `k6 run --env VARS=local.environment.json --env TEST_TYPE=./test-types/load.json main_scenario.js`
+
+---
+
+## Contributors 👥
+
+Made with ❤️ by PagoPa S.p.A.
+
+### Mainteiners
+
+See `CODEOWNERS` file

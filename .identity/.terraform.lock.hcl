@@ -52,6 +52,7 @@ provider "registry.terraform.io/hashicorp/kubernetes" {
   constraints = "2.18.1"
   hashes = [
     "h1:vBRsQjT8QeFe8C9yJ1PR43wzX4hM5UssxlHkPPo34gU=",
+    "h1:y4VED+vsulAqE7YbQC7x1XXrzvi/dEIjupttSyzSA/M=",
     "zh:09d69d244f5e688d9b1582112aa5d151c5336278e43d39c88ae920c26536b753",
     "zh:0df4c988056f7d84d9161c6c955ad7346364c261d100ef510a6cc7fa4a235197",
     "zh:2d3d0cb2931b6153a7971ce8c6fae92722b1116e16f42abbaef115dba895c8d8",
@@ -67,24 +68,44 @@ provider "registry.terraform.io/hashicorp/kubernetes" {
   ]
 }
 
-provider "registry.terraform.io/integrations/github" {
-  version     = "5.12.0"
-  constraints = "5.12.0"
+provider "registry.terraform.io/hashicorp/null" {
+  version = "3.2.1"
   hashes = [
-    "h1:ZamtdBeFAMzHLPk1MKbdDLRd7GksrgxF9dg08fUzPds=",
-    "zh:041b44fff2004656f474cefe75ab0df27fda5163f97d774987e3b62cf6c706a0",
-    "zh:0766d4cd1a43fb3f9c5f91471d26da356e1ffa222bcbc69cef7a132e0924c588",
-    "zh:196c40951758fad02ea95920e46bce5cf48477723c69c5bbf09c76cb9aae989f",
-    "zh:223f53cd5aace1b5ab6c9f5d1b785c740c39bf3b7244f86247bc28b4b964f9bc",
-    "zh:27041c44b793993ce48c62e1679198112011afccfbb30798cf124fd45a9700c7",
-    "zh:30c741f22e5fde2aad35e0fda4293da04d54fde89dbe301e702255ddcca169fa",
-    "zh:51c408c0ad50726d486ebdd0eb26532645678a84cc7b38ea39a25f3a8b83a42d",
-    "zh:622fdad082a0c00f827ccbd21f6a75db63bdc9ba2d49421c6603bc23c56127b0",
-    "zh:648ab2f95cadac4f9e4a1eb54fad327f603ffad1e1c22769deba3c076fa6e358",
-    "zh:6fd41629088abdd36d6bbdc2b56eaddcffa971a7622284d555a8c83d4b6aa210",
-    "zh:8a3abc6f6fadd99963ad9a593893b724ec2c98905f66fd1f627ca3aa55191dde",
-    "zh:a0653c831705804d98db9d352341fee04ea6c7db6fa612f886b7284ce8a67023",
-    "zh:a9b51b0c2e5026a4676b5ac71274eaa745ebef1de72a69667855edb8a9548347",
-    "zh:d7720e30f931f4069255e8d9d08332ccc2ee18b418e899fed55cd4f414f17bb6",
+    "h1:tSj1mL6OQ8ILGqR2mDu7OYYYWf+hoir0pf9KAQ8IzO8=",
+    "h1:ydA0/SNRVB1o95btfshvYsmxA+jZFRZcvKzZSB+4S1M=",
+    "zh:58ed64389620cc7b82f01332e27723856422820cfd302e304b5f6c3436fb9840",
+    "zh:62a5cc82c3b2ddef7ef3a6f2fedb7b9b3deff4ab7b414938b08e51d6e8be87cb",
+    "zh:63cff4de03af983175a7e37e52d4bd89d990be256b16b5c7f919aff5ad485aa5",
+    "zh:74cb22c6700e48486b7cabefa10b33b801dfcab56f1a6ac9b6624531f3d36ea3",
+    "zh:78d5eefdd9e494defcb3c68d282b8f96630502cac21d1ea161f53cfe9bb483b3",
+    "zh:79e553aff77f1cfa9012a2218b8238dd672ea5e1b2924775ac9ac24d2a75c238",
+    "zh:a1e06ddda0b5ac48f7e7c7d59e1ab5a4073bbcf876c73c0299e4610ed53859dc",
+    "zh:c37a97090f1a82222925d45d84483b2aa702ef7ab66532af6cbcfb567818b970",
+    "zh:e4453fbebf90c53ca3323a92e7ca0f9961427d2f0ce0d2b65523cc04d5d999c2",
+    "zh:e80a746921946d8b6761e77305b752ad188da60688cfd2059322875d363be5f5",
+    "zh:fbdb892d9822ed0e4cb60f2fedbdbb556e4da0d88d3b942ae963ed6ff091e48f",
+    "zh:fca01a623d90d0cad0843102f9b8b9fe0d3ff8244593bd817f126582b52dd694",
+  ]
+}
+
+provider "registry.terraform.io/integrations/github" {
+  version     = "5.18.3"
+  constraints = "5.18.3"
+  hashes = [
+    "h1:WbZvLB2qXKVoh4BvOOwFfEds+SZQrkINfSAWPnWFxGo=",
+    "zh:050b37d96628cb7451137755929ca8d21ea546bc46d11a715652584070e83ff2",
+    "zh:053051061f1b7f7673b0ceffac1f239ba28b0e5b375999206fd39976e85d9f2b",
+    "zh:0c300a977ca66d0347ed62bb116fd8fc9abb376a554d4c192d14f3ea71c83500",
+    "zh:1d5a1a5243eba78819d2f92ff2d504ebf9a9008a6670fb5f5660f44eb6a156d8",
+    "zh:a13ac15d251ebf4e7dc40acb0e40df066f443f4c7799186a29e2e44addc7d8e7",
+    "zh:a316d94b885953c036ebc9fba64a23da93974746bc3ac9d207462a6f02d44540",
+    "zh:a658a00373bff5979cc227052c693cbde8ca4c8f9fef1bc8094a3516f2e2a96d",
+    "zh:a7bfc6ad8465d5dc11b6f19d6805364de87fffe27622bb4f37da2319bb1c4956",
+    "zh:d7379a76861f1a6bfc36eca7a20f1f477711247563b105744d69d7bd1f365fad",
+    "zh:de1cd959fd4821248e8d21570601193408648474e74f49597f1d0c43185a4ab7",
+    "zh:e0b281240dd6f2aa405b2d6fe329bc15ab877161affe163fb150d1efca2fccdb",
+    "zh:e372c171358757a983d7aa878abfd05a84484fb4d22167e45c9c1267e78ed060",
+    "zh:f6d3116526030b3f6905f530cd6c04b23d42890d973fa2abe10ce9c89cb1db80",
+    "zh:f99eec731e03cc6a28996c875bd435887cd7ea75ec07cc77b9e768bb12da2227",
   ]
 }

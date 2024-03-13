@@ -53,3 +53,4 @@ obj/
 
 # Terraform
 **/.terraform/
+**/*.copy

@@ -5,7 +5,7 @@
 
     <groupId>it.gov.pagopa.negativebizeventsdatastore</groupId>
     <artifactId>negative-biz-events-datastore-function</artifactId>
-    <version>0.2.6</version>
+    <version>0.2.7</version>
     <packaging>jar</packaging>
 
     <name>Negative Biz Events Datastore Fn</name>

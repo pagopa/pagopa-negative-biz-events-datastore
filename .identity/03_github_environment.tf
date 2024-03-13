@@ -112,7 +112,7 @@ resource "github_actions_environment_secret" "secret_integration_test_ehub_tx_ne
 
 #tfsec:ignore:github-actions-no-plain-text-action-secrets 
 resource "github_actions_environment_secret" "secret_integration_test_ehub_rx_negative_final_biz_conn_string" {
-  count  = var.env_short == "d" ? 1 : 0
+  count  = var.env_short != "p" ? 1 : 0
   repository       = local.github.repository
   environment      = var.env
   secret_name      = "EVENT_HUB_FINAL_RX_CONNECTION_STRING"
@@ -121,7 +121,7 @@ resource "github_actions_environment_secret" "secret_integration_test_ehub_rx_ne
 
 #tfsec:ignore:github-actions-no-plain-text-action-secrets 
 resource "github_actions_environment_secret" "secret_integration_test_ehub_rx_negative_awakable_biz_conn_string" {
-  count  = var.env_short == "d" ? 1 : 0
+  count  = var.env_short != "p" ? 1 : 0
   repository       = local.github.repository
   environment      = var.env
   secret_name      = "EVENT_HUB_AWAKABLE_RX_CONNECTION_STRING"

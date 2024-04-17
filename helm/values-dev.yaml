@@ -83,8 +83,6 @@ microservice-chart:
     COSMOS_DB_NAME: "db"
     COSMOS_DB_CONTAINER_NAME: "negative-biz-events"
     COSMOS_DB_URI: "https://pagopa-d-weu-bizevents-neg-ds-cosmos-account.documents.azure.com:443/"
-    EVENT_HUB_NAMESPACE_1: "pagopa-d-evh-ns03"
-    EVENT_HUB_NAMESPACE_2: "pagopa-d-evh-ns04"
     NEGATIVE_EVENT_HUB_NAME: "nodo-dei-pagamenti-negative-biz-evt"
     AWAKABLE_NEGATIVE_EVENT_HUB_NAME: "nodo-dei-pagamenti-negative-awakable-biz-evt"
     FINAL_NEGATIVE_EVENT_HUB_NAME: "nodo-dei-pagamenti-negative-final-biz-evt"

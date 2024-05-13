@@ -86,7 +86,6 @@ microservice-chart:
     NEGATIVE_EVENT_HUB_NAME: "nodo-dei-pagamenti-negative-biz-evt"
     AWAKABLE_NEGATIVE_EVENT_HUB_NAME: "nodo-dei-pagamenti-negative-awakable-biz-evt"
     FINAL_NEGATIVE_EVENT_HUB_NAME: "nodo-dei-pagamenti-negative-final-biz-evt"
-    REDIS_HOST: "pagopa-p-redis.redis.cache.windows.net"
     REDIS_PORT: "6380"
     REDIS_EXPIRE_TIME_MS: "3600000" # an hour    
   envFieldRef:
@@ -99,7 +98,8 @@ microservice-chart:
     AWAKABLE_EVENTHUB_CONN_STRING: 'ehub-p-tx-awakable-negative-biz-connection-string'
     FINAL_EVENTHUB_CONN_STRING: 'ehub-p-tx-final-negative-biz-connection-string'
     COSMOS_CONN_STRING: 'cosmos-p-negative-biz-connection-string'
-    REDIS_PWD: "redis-password"
+    REDIS_PWD: 'redis-password'
+    REDIS_HOST: 'redis-hostname'
     COSMOS_DB_PRIMARY_KEY: "cosmos-p-negative-biz-key"
     EVENT_HUB_TX_PRIMARY_KEY: "ehub-tx-p-negative-biz-key"
     EVENT_HUB_AWAKABLE_RX_CONNECTION_STRING: "ehub-rx-p-negative-awakable-biz-conn-string"

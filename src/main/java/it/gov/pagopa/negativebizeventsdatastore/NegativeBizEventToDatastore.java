@@ -7,6 +7,7 @@ import com.microsoft.azure.functions.annotation.BindingName;
 import com.microsoft.azure.functions.annotation.Cardinality;
 import com.microsoft.azure.functions.annotation.CosmosDBOutput;
 import com.microsoft.azure.functions.annotation.EventHubTrigger;
+import com.microsoft.azure.functions.annotation.ExponentialBackoffRetry;
 import com.microsoft.azure.functions.annotation.FunctionName;
 
 import it.gov.pagopa.negativebizeventsdatastore.client.RedisClient;
@@ -16,6 +17,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.StringJoiner;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import lombok.NonNull;
 import redis.clients.jedis.Connection;
@@ -32,8 +36,11 @@ public class NegativeBizEventToDatastore {
 			System.getenv("REDIS_EXPIRE_TIME_MS") != null ? Integer.parseInt(System.getenv("REDIS_EXPIRE_TIME_MS")) : 3600000;
 
 	private static final String REDIS_ID_PREFIX = "negbiz_";
+	
+	private static final int EBR_MAX_RETRY_COUNT = 5;
 
 	@FunctionName("EventHubBizEventProcessor")
+	@ExponentialBackoffRetry(maxRetryCount = EBR_MAX_RETRY_COUNT, maximumInterval = "00:15:00", minimumInterval = "00:00:10")
 	public void processBizEvent(
 			@EventHubTrigger(
 					name = "NegativeBizEvent",
@@ -53,20 +60,32 @@ public class NegativeBizEventToDatastore {
 			final ExecutionContext context) {
 
 		Logger logger = context.getLogger();
+		
+		int retryIndex = context.getRetryContext() == null ? 0 : context.getRetryContext().getRetrycount();
+        if (retryIndex == EBR_MAX_RETRY_COUNT) {
+        	logger.log(Level.WARNING, () -> String.format("[LAST RETRY] NegativeBizEventToDatastore function with invocationId [%s] performing the last retry for events ingestion", 
+        			context.getInvocationId()));
+		}
+        
+        logger.log(Level.INFO, () -> String.format("NegativeBizEventToDatastore function with invocationId [%s] called at [%s] with events list size [%s] and properties size [%s]", 
+        		context.getInvocationId(), LocalDateTime.now(), negativeBizEvtMsg.size(), properties.length));
 
-		String message =
-				String.format(
-						"NegativeBizEventToDatastore function called at %s with events list size %s and"
-								+ " properties size %s",
-								LocalDateTime.now(), negativeBizEvtMsg.size(), properties.length);
-		logger.info(message);
-
+        StringJoiner eventDetails = new StringJoiner(", ", "{", "}");
 		// persist the item
 		try {
 			if (negativeBizEvtMsg.size() == properties.length) {
 				List<BizEvent> bizEvtMsgWithProperties = new ArrayList<>();
 
 				for (int i = 0; i < negativeBizEvtMsg.size(); i++) {
+					eventDetails.add("id: " + negativeBizEvtMsg.get(i).getId());
+    	        	eventDetails.add("idPA: " + Optional.ofNullable(negativeBizEvtMsg.get(i).getCreditor()).map(o -> o.getIdPA()).orElse("N/A"));
+    	        	eventDetails.add("modelType: " + Optional.ofNullable(negativeBizEvtMsg.get(i).getDebtorPosition()).map(o -> o.getModelType()).orElse("N/A"));
+    	        	eventDetails.add("noticeNumber: " + Optional.ofNullable(negativeBizEvtMsg.get(i).getDebtorPosition()).map(o -> o.getNoticeNumber()).orElse("N/A"));
+    	        	eventDetails.add("iuv: " + Optional.ofNullable(negativeBizEvtMsg.get(i).getDebtorPosition()).map(o -> o.getIuv()).orElse("N/A"));
+    	        	
+    	        	logger.log(Level.INFO, () -> String.format("NegativeBizEventToDatastore function with invocationId [%s] working the biz-event [%s]",
+							context.getInvocationId(), eventDetails));
+    	        	
 					// READ FROM THE CACHE: The cache is queried to find out if the event has already been queued --> if yes it is skipped
 					String value = this.findByBizEventId(negativeBizEvtMsg.get(i).getId(), logger);
 					if (Strings.isNullOrEmpty(value)) {
@@ -74,36 +93,40 @@ public class NegativeBizEventToDatastore {
 						be.setProperties(properties[i]);
 						// WRITE IN THE CACHE: The result of the insertion in the cache is logged to verify the correct functioning
 						String result = this.saveBizEventId(negativeBizEvtMsg.get(i).getId(), logger);
-						message = String.format("Negative BizEvent message with id %s was cached with result: %s",
-								negativeBizEvtMsg.get(i).getId(), result);
-						logger.info(message);
+						
+						String msg = String.format("NegativeBizEventToDatastore function with invocationId [%s] cached biz-event message with id [%s] and result: [%s]",
+								context.getInvocationId(), negativeBizEvtMsg.get(i).getId(), result);
+						logger.info(msg);
 
 						bizEvtMsgWithProperties.add(be);
+						
 					} else {
 						// just to track duplicate events  
-						message = String.format("The negative BizEvent message with id %s has already been processed previously, it is discarded",
-								negativeBizEvtMsg.get(i).getId());
-						logger.info(message);
+						String msg = String.format("NegativeBizEventToDatastore function with invocationId [%s] has already processed and cached biz-event message with id [%s]: it is discarded",
+								context.getInvocationId(), negativeBizEvtMsg.get(i).getId());
+						logger.info(msg);	
 					}
 				}
 				
 				documentdb.setValue(bizEvtMsgWithProperties);
 				
 			} else {
-				throw new AppException(
-						"Error during processing - The size of the events to be processed and their associated"
-								+ " properties does not match [bizEvtMsg.size="
-								+ negativeBizEvtMsg.size()
-								+ "; properties.length="
-								+ properties.length
-								+ "]");
+				throw new AppException("NegativeBizEventToDatastore function with invocationId [%s] - Error during processing - "
+            			+ "The size of the events to be processed and their associated properties does not match [bizEvtMsg.size="
+						+negativeBizEvtMsg.size()
+						+"; properties.length="
+						+properties.length
+						+"]");
+				
 			}
 		} catch (Exception e) {
-			logger.severe(
-					"Generic exception on cosmos biz-events msg ingestion at "
-							+ LocalDateTime.now()
-							+ " : "
-							+ e.getMessage());
+			logger.severe("NegativeBizEventToDatastore function with invocationId [%s] "
+            		+ "- Generic exception on cosmos biz-events msg ingestion at "
+					+ LocalDateTime.now()
+					+ " ["
+					+eventDetails
+					+"]: " 
+					+ e.getMessage());
 		}
 	}
 

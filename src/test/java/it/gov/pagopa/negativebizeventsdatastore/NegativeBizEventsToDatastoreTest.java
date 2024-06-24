@@ -21,6 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.OutputBinding;
+import com.microsoft.azure.functions.RetryContext;
 
 import it.gov.pagopa.negativebizeventsdatastore.entity.BizEvent;
 import it.gov.pagopa.negativebizeventsdatastore.entity.DebtorPosition;
@@ -32,12 +33,17 @@ class NegativeBizEventToDataStoreTest {
   @Spy NegativeBizEventToDatastore function;
 
   @Mock ExecutionContext context;
+  
+  @Mock RetryContext retryContext;
+  
 
   @Test
   void runOk() {
     // test precondition
     Logger logger = Logger.getLogger("NegativeBizEventToDataStore-test-logger");
     when(context.getLogger()).thenReturn(logger);
+    when(context.getRetryContext()).thenReturn(retryContext);
+    when(retryContext.getRetrycount()).thenReturn(5);
     
     PaymentInfo pi = PaymentInfo.builder().build();
     DebtorPosition dp = DebtorPosition.builder().iuv("iuv").build();

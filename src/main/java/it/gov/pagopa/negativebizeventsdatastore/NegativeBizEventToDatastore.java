@@ -84,7 +84,7 @@ public class NegativeBizEventToDatastore {
     	        	eventDetails.add("noticeNumber: " + Optional.ofNullable(negativeBizEvtMsg.get(i).getDebtorPosition()).map(o -> o.getNoticeNumber()).orElse("N/A"));
     	        	eventDetails.add("iuv: " + Optional.ofNullable(negativeBizEvtMsg.get(i).getDebtorPosition()).map(o -> o.getIuv()).orElse("N/A"));
     	        	
-    	        	logger.log(Level.FINEST, () -> String.format("NegativeBizEventToDatastore function with invocationId [%s] working the biz-event [%s]",
+    	        	logger.log(Level.FINE, () -> String.format("NegativeBizEventToDatastore function with invocationId [%s] working the biz-event [%s]",
 							context.getInvocationId(), eventDetails));
     	        	
 					// READ FROM THE CACHE: The cache is queried to find out if the event has already been queued --> if yes it is skipped
@@ -97,7 +97,7 @@ public class NegativeBizEventToDatastore {
 						
 						String msg = String.format("NegativeBizEventToDatastore function with invocationId [%s] cached biz-event message with id [%s] and result: [%s]",
 								context.getInvocationId(), negativeBizEvtMsg.get(i).getId(), result);
-						logger.finest(msg);
+						logger.fine(msg);
 
 						bizEvtMsgWithProperties.add(be);
 						
@@ -105,7 +105,7 @@ public class NegativeBizEventToDatastore {
 						// just to track duplicate events  
 						String msg = String.format("NegativeBizEventToDatastore function with invocationId [%s] has already processed and cached biz-event message with id [%s]: it is discarded",
 								context.getInvocationId(), negativeBizEvtMsg.get(i).getId());
-						logger.finest(msg);	
+						logger.fine(msg);	
 					}
 				}
 				

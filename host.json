@@ -10,12 +10,12 @@
     }
   },
   "logging": {
-    "fileLoggingMode": "always",
+    "fileLoggingMode": "debugOnly",
     "logLevel": {
-      "default": "Information",
+      "default": "None",
       "Host.Results": "Error",
-      "Function": "Information",
-      "Host.Aggregator": "Trace"
+      "Function": "Error",
+      "Host.Aggregator": "Error"
     },
     "applicationInsights": {
       "samplingSettings": {

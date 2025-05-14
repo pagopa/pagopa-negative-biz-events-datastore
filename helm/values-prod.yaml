@@ -10,14 +10,14 @@ microservice-chart:
   livenessProbe:
     httpGet:
       path: /info
-      port: 80
+      port: 8080
     initialDelaySeconds: 60
     failureThreshold: 6
     periodSeconds: 10
   readinessProbe:
     httpGet:
       path: /info
-      port: 80
+      port: 8080
     initialDelaySeconds: 60
     failureThreshold: 6
     periodSeconds: 10
@@ -31,18 +31,18 @@ microservice-chart:
         targetPort: 12345
         path: /metrics
   ports:
-    - 80 #http
+    - 8080 #http
     - 12345 #jmx-exporter
   service:
     type: ClusterIP
     ports:
-      - 80 #http
+      - 8080 #http
       - 12345 #jmx-exporter
   ingress:
     create: true
     host: "weuprod.bizevents.internal.platform.pagopa.it"
     path: /pagopa-negative-biz-events-datastore-service/(.*)
-    servicePort: 80
+    servicePort: 8080
   serviceAccount:
     name: "bizevents-workload-identity"
   azure:

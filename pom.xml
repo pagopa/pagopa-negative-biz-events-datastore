@@ -5,7 +5,7 @@
 
     <groupId>it.gov.pagopa.negativebizeventsdatastore</groupId>
     <artifactId>negative-biz-events-datastore-function</artifactId>
-    <version>0.2.16-PIDM-488-workload-identity</version>
+    <version>0.2.17</version>
     <packaging>jar</packaging>
 
     <name>Negative Biz Events Datastore Fn</name>

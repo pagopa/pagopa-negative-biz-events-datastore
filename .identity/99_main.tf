@@ -4,19 +4,15 @@ terraform {
   required_providers {
     azuread = {
       source  = "hashicorp/azuread"
-      version = "~> 2.53"
+      version = "2.30.0"
     }
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.117"
+      version = ">= 3.116.0, < 4.0.0"
     }
     github = {
       source  = "integrations/github"
       version = "5.18.3"
-    }
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "= 2.36.0"
     }
   }
 
@@ -24,19 +20,18 @@ terraform {
 }
 
 provider "azurerm" {
-  features {}
+  skip_provider_registration = true
+  features {
+    key_vault {
+      purge_soft_delete_on_destroy = false
+    }
+  }
 }
 
 provider "github" {
-  owner          = "pagopa"
-  write_delay_ms = "200"
-  read_delay_ms  = "200"
+  owner = "pagopa"
 }
 
 data "azurerm_subscription" "current" {}
 
 data "azurerm_client_config" "current" {}
-
-provider "kubernetes" {
-  config_path = "${var.k8s_kube_config_path_prefix}/config-${local.aks_name}"
-}

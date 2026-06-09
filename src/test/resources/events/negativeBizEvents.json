@@ -36,7 +36,7 @@
       "fullName": "Utente Test",
       "entityUniqueIdentifierType": "F",
       "entityUniqueIdentifierValue": "TTTTTT11T11T123T",
-      "entityUniqueIdentifierValidity": 1
+      "entityUniqueIdentifierValidity": "1"
     },
     "paymentInfo": {
       "paymentDateTime": "2023-05-03T10:07:22.703673",

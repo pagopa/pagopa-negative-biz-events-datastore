@@ -103,6 +103,9 @@ Then('the eventhub retrieves at least the {int} awakable and {int} final events'
 
 Then('the datastore returns the not updated event', async function () {
     responseToCheck = await getDocumentById(eventId);
+    assert.strictEqual(responseToCheck.status, 200, `Unexpected Cosmos response: ${JSON.stringify(responseToCheck && responseToCheck.data)}`);
+    assert.ok(responseToCheck.data && Array.isArray(responseToCheck.data.Documents), `Cosmos response has no Documents array: ${JSON.stringify(responseToCheck && responseToCheck.data)}`);
+    assert.ok(responseToCheck.data.Documents.length > 0, `Document with id ${eventId} not found`);
     assert.strictEqual(responseToCheck.data.Documents[0].id, eventId);
     assert.strictEqual(responseToCheck.data.Documents[0]._ts, eventCreationTimestamp);
 });

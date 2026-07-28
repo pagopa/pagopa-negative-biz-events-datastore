@@ -14,7 +14,7 @@ let totalMessages = new Array();
 
 let eventCreationTimestamp;
 
-setDefaultTimeout(360 * 1000);
+setDefaultTimeout(2 * 60 * 1000);
 
 //After each Scenario
 After(function () {
@@ -99,6 +99,17 @@ Then('the eventhub retrieves at least the {int} awakable and {int} final events'
   }
   assert.ok(counterAwakable >= numAwakable);
   assert.ok(counterFinal >= numFinal);
+});
+
+Then('the datastore returns the event with paymentChannel field', async function () {
+    responseToCheck = await getDocumentById(eventId);
+    assert.strictEqual(responseToCheck.status, 200, `Unexpected Cosmos response: ${JSON.stringify(responseToCheck && responseToCheck.data)}`);
+    assert.ok(responseToCheck.data && Array.isArray(responseToCheck.data.Documents), `Cosmos response has no Documents array: ${JSON.stringify(responseToCheck && responseToCheck.data)}`);
+    assert.ok(responseToCheck.data.Documents.length > 0, `Document with id ${eventId} not found`);
+    const doc = responseToCheck.data.Documents[0];
+    assert.strictEqual(doc.id, eventId);
+    assert.ok(doc.paymentInfo && doc.paymentInfo.paymentChannel !== undefined && doc.paymentInfo.paymentChannel !== null && doc.paymentInfo.paymentChannel !== '',
+        `paymentChannel field is missing or empty in paymentInfo: ${JSON.stringify(doc.paymentInfo)}`);
 });
 
 Then('the datastore returns the not updated event', async function () {

@@ -24,6 +24,16 @@ Feature: All about payment events consumed by Azure Function biz-event-processor
     When the eventhub sends the same "awakable" biz event again
     Then the datastore returns the not updated event
 
+  Scenario: A final negative biz event published on Event-Hub contains paymentChannel in datastore
+    Given a random "final" biz event is published on eventhub
+    When biz event has been properly stored into datastore after 20000 ms
+    Then the datastore returns the event with paymentChannel field
+
+  Scenario: An awakable negative biz event published on Event-Hub contains paymentChannel in datastore
+    Given a random "awakable" biz event is published on eventhub
+    When biz event has been properly stored into datastore after 20000 ms
+    Then the datastore returns the event with paymentChannel field
+
   # Scenario: A final negative biz event stored into datastore is published on Event-Hub
   #   Given a random "final" biz event with id "test-id-3"
   #   When biz event has been properly stored into datastore after 20000 ms

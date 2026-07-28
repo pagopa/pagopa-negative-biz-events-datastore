@@ -3,7 +3,7 @@ name: pagopa-functions-template
 description: Microservice description
 type: application
 version: 0.31.0
-appVersion: 0.2.20-1-PAGOPA-3706-opr-tag-touchpoint-pos-not-assign-to-biz
+appVersion: 0.2.21
 dependencies:
   - name: microservice-chart
     version: 8.0.2

@@ -13,6 +13,49 @@ let parsedMessage;
 let totalMessages = new Array();
 
 let eventCreationTimestamp;
+let expectedEvent;
+
+function removeCosmosSystemFields(event, isRoot = true) {
+    if (Array.isArray(event)) {
+        return event.map(item => removeCosmosSystemFields(item, false));
+    }
+    if (event !== null && typeof event === 'object') {
+        const sanitized = {};
+        for (const [key, value] of Object.entries(event)) {
+            // strip Cosmos system fields from root document
+            if (isRoot && ['_rid', '_self', '_etag', '_attachments', '_ts'].includes(key)) continue;
+            // `properties` is cleared by the service on storage: preserve the key as empty object
+            if (isRoot && key === 'properties') { sanitized[key] = {}; continue; }
+            // Cosmos DB reserves `id` at document level and removes it from nested objects
+            if (!isRoot && key === 'id') continue;
+            sanitized[key] = removeCosmosSystemFields(value, false);
+        }
+        return sanitized;
+    }
+    return event;
+}
+
+function assertExpectedStructure(actual, expected, path) {
+    if (Array.isArray(expected)) {
+        assert.ok(Array.isArray(actual), `Field ${path} should be an array`);
+        assert.strictEqual(actual.length, expected.length, `Unexpected length for array ${path}`);
+        expected.forEach((expectedItem, index) => {
+            assertExpectedStructure(actual[index], expectedItem, `${path}[${index}]`);
+        });
+        return;
+    }
+
+    if (expected !== null && typeof expected === 'object') {
+        assert.ok(actual !== null && typeof actual === 'object', `Field ${path} should be an object`);
+        Object.keys(expected).forEach((key) => {
+            assert.ok(Object.prototype.hasOwnProperty.call(actual, key), `Missing field ${path}.${key}`);
+            assertExpectedStructure(actual[key], expected[key], `${path}.${key}`);
+        });
+        return;
+    }
+
+    assert.strictEqual(actual, expected, `Unexpected value for field ${path}`);
+}
 
 setDefaultTimeout(2 * 60 * 1000);
 
@@ -30,6 +73,7 @@ Given('a random {string} biz event is published on eventhub', async function (ty
     let isAwakable = awakableCaseHandling(type);
 
     const event = createNegativeBizEvent(eventId, isAwakable);
+    expectedEvent = removeCosmosSystemFields(event);
     let responseToCheck =  await publishEvent(event);
 
     assert.strictEqual(responseToCheck.status, 201);
@@ -101,15 +145,13 @@ Then('the eventhub retrieves at least the {int} awakable and {int} final events'
   assert.ok(counterFinal >= numFinal);
 });
 
-Then('the datastore returns the event with paymentChannel field', async function () {
+Then('the datastore returns the event with all expected fields', async function () {
     responseToCheck = await getDocumentById(eventId);
     assert.strictEqual(responseToCheck.status, 200, `Unexpected Cosmos response: ${JSON.stringify(responseToCheck && responseToCheck.data)}`);
     assert.ok(responseToCheck.data && Array.isArray(responseToCheck.data.Documents), `Cosmos response has no Documents array: ${JSON.stringify(responseToCheck && responseToCheck.data)}`);
     assert.ok(responseToCheck.data.Documents.length > 0, `Document with id ${eventId} not found`);
     const doc = responseToCheck.data.Documents[0];
-    assert.strictEqual(doc.id, eventId);
-    assert.ok(doc.paymentInfo && doc.paymentInfo.paymentChannel !== undefined && doc.paymentInfo.paymentChannel !== null && doc.paymentInfo.paymentChannel !== '',
-        `paymentChannel field is missing or empty in paymentInfo: ${JSON.stringify(doc.paymentInfo)}`);
+    assertExpectedStructure(doc, expectedEvent, 'document');
 });
 
 Then('the datastore returns the not updated event', async function () {

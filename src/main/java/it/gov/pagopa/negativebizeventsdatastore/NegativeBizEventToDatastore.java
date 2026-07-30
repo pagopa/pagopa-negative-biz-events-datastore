@@ -112,22 +112,18 @@ public class NegativeBizEventToDatastore {
 				documentdb.setValue(bizEvtMsgWithProperties);
 				
 			} else {
-				throw new AppException("NegativeBizEventToDatastore function with invocationId [%s] - Error during processing - "
-            			+ "The size of the events to be processed and their associated properties does not match [bizEvtMsg.size="
-						+negativeBizEvtMsg.size()
-						+"; properties.length="
-						+properties.length
-						+"]");
+				throw new AppException(String.format(
+						"NegativeBizEventToDatastore function with invocationId [%s] - Error during processing - "
+								+ "The size of the events to be processed and their associated properties does not match "
+								+ "[bizEvtMsg.size=%s; properties.length=%s]",
+						context.getInvocationId(), negativeBizEvtMsg.size(), properties.length));
 				
 			}
 		} catch (Exception e) {
-			logger.severe("NegativeBizEventToDatastore function with invocationId [%s] "
-            		+ "- Generic exception on cosmos biz-events msg ingestion at "
-					+ LocalDateTime.now()
-					+ " ["
-					+eventDetails
-					+"]: " 
-					+ e.getMessage());
+			logger.severe(String.format(
+					"NegativeBizEventToDatastore function with invocationId [%s] "
+							+ "- Generic exception on cosmos biz-events msg ingestion at %s [%s]: %s",
+					context.getInvocationId(), LocalDateTime.now(), eventDetails, e.getMessage()));
 		}
 	}
 

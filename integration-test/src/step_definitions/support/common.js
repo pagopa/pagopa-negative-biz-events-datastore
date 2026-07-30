@@ -7,6 +7,7 @@ function get(url, headers) {
             return res;
         })
         .catch(error => {
+            if (!error.response) throw error;
             return error.response;
         });
 }
@@ -17,6 +18,7 @@ function post(url, body, headers) {
             return res;
         })
         .catch(error => {
+            if (!error.response) throw error;
             return error.response;
         });
 }
@@ -27,6 +29,7 @@ function put(url, body, headers) {
             return res;
         })
         .catch(error => {
+            if (!error.response) throw error;
             return error.response;
         });
 }
@@ -37,6 +40,7 @@ function del(url, headers) {
             return res;
         })
         .catch(error => {
+            if (!error.response) throw error;
             return error.response;
         });
 }
@@ -56,7 +60,6 @@ function createNegativeBizEvent(id, reAwakable) {
          "missingInfo": [
              "creditor.officeName",
              "paymentInfo.dueDate",
-             "paymentInfo.paymentMethod",
              "paymentInfo.metadata"
          ],
          "debtorPosition": {
@@ -90,6 +93,8 @@ function createNegativeBizEvent(id, reAwakable) {
              "amount": 100,
              "totalNotice": 1,
              "touchpoint": "NA",
+             "paymentMethod": "creditCard",
+             "paymentChannel": "66666666666_66",
              "remittanceInformation": "pagamento multibeneficiario"
          },
          "transferList": [

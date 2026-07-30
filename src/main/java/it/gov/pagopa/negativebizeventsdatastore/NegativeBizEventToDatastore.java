@@ -112,54 +112,75 @@ public class NegativeBizEventToDatastore {
 				documentdb.setValue(bizEvtMsgWithProperties);
 				
 			} else {
-				throw new AppException("NegativeBizEventToDatastore function with invocationId [%s] - Error during processing - "
-            			+ "The size of the events to be processed and their associated properties does not match [bizEvtMsg.size="
-						+negativeBizEvtMsg.size()
-						+"; properties.length="
-						+properties.length
-						+"]");
+				throw new AppException(String.format(
+						"NegativeBizEventToDatastore function with invocationId [%s] - Error during processing - "
+								+ "The size of the events to be processed and their associated properties does not match "
+								+ "[bizEvtMsg.size=%s; properties.length=%s]",
+						context.getInvocationId(), negativeBizEvtMsg.size(), properties.length));
 				
 			}
 		} catch (Exception e) {
-			logger.severe("NegativeBizEventToDatastore function with invocationId [%s] "
-            		+ "- Generic exception on cosmos biz-events msg ingestion at "
-					+ LocalDateTime.now()
-					+ " ["
-					+eventDetails
-					+"]: " 
-					+ e.getMessage());
+			logger.severe(String.format(
+					"NegativeBizEventToDatastore function with invocationId [%s] "
+							+ "- Generic exception on cosmos biz-events msg ingestion at %s [%s]: %s",
+					context.getInvocationId(), LocalDateTime.now(), eventDetails, e.getMessage()));
 		}
 	}
-
+	
 	public String findByBizEventId(String id, Logger logger) {
-    	try (Connection j = jedis.getPool().getResource()){
-    		return jedis.get(REDIS_ID_PREFIX+id);
-    	} catch (Exception e) {
-    		String msg = String.format("Error getting existing connection to Redis. A new one is created to GET the BizEvent message with id %s. [error message = %s]", 
-    				REDIS_ID_PREFIX+id, e.getMessage());
-    		logger.warning(msg);
-    		// It try to acquire the connection again. If it fails, a null value is returned so that the data is not discarded
-    		try (JedisPooled j = RedisClient.getInstance().redisConnectionFactory()){
-    			return j.get(REDIS_ID_PREFIX+id);
-    		} catch (Exception ex) {
-    			return null;
-    		}
-    	}
-    }
+	    try (Connection j = jedis.getPool().getResource()) {
+	        return jedis.get(REDIS_ID_PREFIX + id);
+	    } catch (Exception e) {
+	        // The failure is recoverable through a new Redis connection, so keep it at FINE
+	        // to avoid unnecessary warnings while preserving troubleshooting information.
+	        String msg = String.format(
+	                "Error getting existing connection to Redis. A new one is created to GET the BizEvent message with id %s. [error message = %s]",
+	                REDIS_ID_PREFIX + id,
+	                e.getMessage());
+	        logger.fine(msg);
+
+	        // It try to acquire the connection again. If it fails, a null value is returned so that the data is not discarded
+	        try (JedisPooled j = RedisClient.getInstance().redisConnectionFactory()) {
+	            return j.get(REDIS_ID_PREFIX + id);
+	        } catch (Exception ex) {
+	            String fallbackErrorMsg = String.format(
+	                    "Unable to GET the BizEvent message with id %s from Redis after creating a new connection. [error message = %s]",
+	                    REDIS_ID_PREFIX + id,
+	                    ex.getMessage());
+	            logger.warning(fallbackErrorMsg);
+	            return null;
+	        }
+	    }
+	}
     
-    public String saveBizEventId(String id, Logger logger) {
-    	try (Connection j = jedis.getPool().getResource()){
-    		return jedis.set(REDIS_ID_PREFIX+id, id, new SetParams().px(EXPIRE_TIME_IN_MS));
-    	} catch (Exception e) {
-    		String msg = String.format("Error getting existing connection to Redis. A new one is created to SET the BizEvent message with id %s. [error message = %s]", 
-    				REDIS_ID_PREFIX+id, e.getMessage());
-    		logger.warning(msg);
-    		// It try to acquire the connection again. If it fails, a null value is returned so that the data is not discarded
-    		try (JedisPooled j = RedisClient.getInstance().redisConnectionFactory()){
-    			return j.set(REDIS_ID_PREFIX+id, id, new SetParams().px(EXPIRE_TIME_IN_MS));
-    		} catch (Exception ex) {
-    			return null;
-    		}
-    	}
-    }
+	public String saveBizEventId(String id, Logger logger) {
+	    try (Connection j = jedis.getPool().getResource()) {
+	        return jedis.set(
+	                REDIS_ID_PREFIX + id,
+	                id,
+	                new SetParams().px(EXPIRE_TIME_IN_MS));
+	    } catch (Exception e) {
+	        // The failure is recoverable through a new Redis connection, so keep it at FINE
+	        // to avoid unnecessary warnings while preserving troubleshooting information.
+	        String msg = String.format(
+	                "Error getting existing connection to Redis. A new one is created to SET the BizEvent message with id %s. [error message = %s]",
+	                REDIS_ID_PREFIX + id,
+	                e.getMessage());
+	        logger.fine(msg);
+
+	        try (JedisPooled j = RedisClient.getInstance().redisConnectionFactory()) {
+	            return j.set(
+	                    REDIS_ID_PREFIX + id,
+	                    id,
+	                    new SetParams().px(EXPIRE_TIME_IN_MS));
+	        } catch (Exception ex) {
+	            String fallbackErrorMsg = String.format(
+	                    "Unable to SET the BizEvent message with id %s on Redis after creating a new connection. [error message = %s]",
+	                    REDIS_ID_PREFIX + id,
+	                    ex.getMessage());
+	            logger.warning(fallbackErrorMsg);
+	            return null;
+	        }
+	    }
+	}
 }

@@ -25,7 +25,8 @@ public class TestUtil {
     return objectMapper.readValue(content, clazz);
   }
 
-  public static <T, clazz> List<clazz> readListModelFromFile(String relativePath, Class<T> clazz) throws IOException {
+  public static <T> List<T> readListModelFromFile(
+		  String relativePath, Class<T> clazz) throws IOException {
 
 	  ClassLoader classLoader = TestUtil.class.getClassLoader();
 

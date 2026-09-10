@@ -11,14 +11,14 @@
   },
   "logging": {
     "fileLoggingMode": "debugOnly",
-	"logLevel": {
-	  "default": "None",
-	  "Host.Results": "Error",
-	  "Function": "Warning",
-	  "Function.EventHubBizEventProcessor.User": "Information",
-	  "Function.NegativeBizEventsToEventHubProcessor.User": "Information",
-	  "Host.Aggregator": "Error"
-	},
+    "logLevel": {
+      "default": "None",
+      "Host.Results": "Error",
+      "Function": "Warning",
+      "Function.EventHubBizEventProcessor.User": "Information",
+      "Function.NegativeBizEventsToEventHubProcessor.User": "Information",
+      "Host.Aggregator": "Error"
+    },
     "applicationInsights": {
       "samplingSettings": {
         "isEnabled": true,
